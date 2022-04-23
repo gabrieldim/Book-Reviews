@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -16,6 +18,8 @@ public class ReviewRequest {
     private String title;
     @NotBlank
     private String description;
+    @Min(1)
+    @Max(5)
     @NotNull
     private Long rating;
 

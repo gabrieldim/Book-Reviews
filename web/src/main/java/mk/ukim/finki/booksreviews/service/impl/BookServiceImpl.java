@@ -43,8 +43,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Optional<Book> createBook(BookRequest bookRequest) {
-        Book book = Book.of(bookRequest.getTitle(), bookRequest.getDescription(), bookRequest.getGenre(),
-                bookRequest.getPreviewLink(), bookRequest.getQuote(), bookRequest.getAvailability());
+        Book book = bookRepository.save(Book.of(bookRequest.getTitle(), bookRequest.getDescription(), bookRequest.getGenre(),
+                bookRequest.getPreviewLink(), bookRequest.getQuote(), bookRequest.getAvailability()));
         authorRepository.findById(bookRequest.getAuthorId()).ifPresent(author -> {
             author.addBook(book);
             authorRepository.save(author);
@@ -55,7 +55,8 @@ public class BookServiceImpl implements BookService {
                 libraryRepository.save(library);
             });
         }
-        return Optional.of(bookRepository.save(book));
+
+        return Optional.of(book);
     }
 
     @Override

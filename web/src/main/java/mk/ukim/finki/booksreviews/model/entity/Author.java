@@ -39,7 +39,7 @@ public class Author {
 
     private String artName;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Book> books;
 

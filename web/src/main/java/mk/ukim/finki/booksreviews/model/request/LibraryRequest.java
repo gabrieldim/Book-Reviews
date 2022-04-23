@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 public class LibraryRequest {
 
     @NotBlank
-    private String location;
-    @NotBlank
     private String name;
+    @NotBlank
+    private String location;
 }

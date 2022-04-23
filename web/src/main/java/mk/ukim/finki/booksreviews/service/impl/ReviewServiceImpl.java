@@ -42,8 +42,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Optional<Review> createReview(ReviewRequest reviewRequest) {
-        Review review = Review.of(reviewRequest.getTitle(), reviewRequest.getDescription(),
-                reviewRequest.getRating(), reviewRequest.getBookId(), LocalDateTime.now());
+        Review review = reviewRepository.save(Review.of(reviewRequest.getTitle(), reviewRequest.getDescription(),
+                reviewRequest.getRating(), reviewRequest.getBookId(), LocalDateTime.now()));
         bookRepository.findById(reviewRequest.getBookId()).ifPresent(book -> {
             book.addReview(review);
             bookRepository.save(book);
@@ -52,7 +52,8 @@ public class ReviewServiceImpl implements ReviewService {
             reviewer.addReview(review);
             reviewerRepository.save(reviewer);
         });
-        return Optional.of(reviewRepository.save(review));
+
+        return Optional.of(review);
     }
 
     @Override

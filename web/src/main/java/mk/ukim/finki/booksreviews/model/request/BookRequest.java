@@ -3,6 +3,7 @@ package mk.ukim.finki.booksreviews.model.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -27,5 +28,6 @@ public class BookRequest {
 
     @NotNull
     private Long authorId;
+    @Nullable
     private Long libraryId;
 }

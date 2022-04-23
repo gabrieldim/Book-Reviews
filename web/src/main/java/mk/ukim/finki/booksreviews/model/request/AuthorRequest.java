@@ -3,6 +3,7 @@ package mk.ukim.finki.booksreviews.model.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -25,8 +26,12 @@ public class AuthorRequest {
     @NotBlank
     private String password;
 
+    @Nullable
     private Integer age;
+    @Nullable
     private LocalDateTime birthDate;
+    @Nullable
     private String bioDescription;
+    @Nullable
     private String artName;
 }

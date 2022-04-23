@@ -40,7 +40,7 @@ public class ReviewerServiceImpl implements ReviewerService {
 
     @Override
     public Optional<Reviewer> registerReviewer(ReviewerRequest reviewerRequest) {
-        if (ValidationUtils.isValidUser(reviewerRequest.getEmail(), reviewerRequest.getPassword())) {
+        if (!ValidationUtils.isValidUser(reviewerRequest.getEmail(), reviewerRequest.getPassword())) {
             return Optional.empty();
         }
         if (reviewerRepository.findByUser_Email(reviewerRequest.getEmail()).isPresent()) {

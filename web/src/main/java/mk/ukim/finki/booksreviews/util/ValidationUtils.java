@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public class ValidationUtils {
 
     private final static String EMAIL_REGEX_PATTERN = "^(.+)@(\\S+)$";
-    private final static String PASSWORD_REGEX_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–{}:;',?/*~$^+=<>]).{5,30}$";
+    private final static String PASSWORD_REGEX_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{5,30}$";
 
     public static Boolean isValidEmailAddress(String emailAddress) {
         return Pattern.compile(EMAIL_REGEX_PATTERN)
