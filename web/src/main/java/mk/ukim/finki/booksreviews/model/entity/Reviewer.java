@@ -34,7 +34,7 @@ public class Reviewer {
 
     private Integer numberOfReviewed;
 
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Review> reviews;
 

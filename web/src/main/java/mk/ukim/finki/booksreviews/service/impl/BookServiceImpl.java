@@ -6,9 +6,10 @@ import mk.ukim.finki.booksreviews.model.request.BookRequest;
 import mk.ukim.finki.booksreviews.repository.AuthorRepository;
 import mk.ukim.finki.booksreviews.repository.BookRepository;
 import mk.ukim.finki.booksreviews.repository.LibraryRepository;
-import mk.ukim.finki.booksreviews.repository.ReviewRepository;
 import mk.ukim.finki.booksreviews.service.BookService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,13 +23,17 @@ import java.util.Optional;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
-    private final ReviewRepository reviewRepository;
     private final AuthorRepository authorRepository;
     private final LibraryRepository libraryRepository;
 
     @Override
     public List<Book> findAll() {
         return bookRepository.findAll();
+    }
+
+    @Override
+    public Page<Book> findAllPageable(Pageable pageable) {
+        return bookRepository.findAll(pageable);
     }
 
     @Override
@@ -76,13 +81,5 @@ public class BookServiceImpl implements BookService {
                     ? bookRequest.getTitle() : book.getTitle());
             return bookRepository.save(book);
         });
-    }
-
-    @Override
-    public void addReviewToBook(Long id, Long reviewId) {
-        findById(id).ifPresent(book -> reviewRepository.findById(reviewId).ifPresent(review -> {
-            book.addReview(review);
-            bookRepository.save(book);
-        }));
     }
 }

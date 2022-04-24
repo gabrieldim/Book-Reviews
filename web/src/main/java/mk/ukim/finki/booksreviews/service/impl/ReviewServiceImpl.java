@@ -8,6 +8,8 @@ import mk.ukim.finki.booksreviews.repository.ReviewRepository;
 import mk.ukim.finki.booksreviews.repository.ReviewerRepository;
 import mk.ukim.finki.booksreviews.service.ReviewService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +33,11 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public Page<Review> findAllPageable(Pageable pageable) {
+        return reviewRepository.findAll(pageable);
+    }
+
+    @Override
     public List<Review> findAllByBook(Long bookId) {
         return reviewRepository.findAllByBookId(bookId);
     }
@@ -42,6 +49,10 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Optional<Review> createReview(ReviewRequest reviewRequest) {
+        Long rating = reviewRequest.getBookId();
+        if (Objects.isNull(rating) || rating < 1 || rating > 5) {
+            return Optional.empty();
+        }
         Review review = reviewRepository.save(Review.of(reviewRequest.getTitle(), reviewRequest.getDescription(),
                 reviewRequest.getRating(), reviewRequest.getBookId(), LocalDateTime.now()));
         bookRepository.findById(reviewRequest.getBookId()).ifPresent(book -> {
@@ -65,7 +76,8 @@ public class ReviewServiceImpl implements ReviewService {
                     ? reviewRequest.getTitle() : review.getTitle());
             review.setBookId(Objects.nonNull(reviewRequest.getBookId())
                     ? reviewRequest.getBookId() : review.getBookId());
-            review.setRating(Objects.nonNull(reviewRequest.getRating())
+            Long rating = reviewRequest.getBookId();
+            review.setRating(Objects.nonNull(rating) && rating >= 1 && rating <= 5
                     ? reviewRequest.getRating() : review.getRating());
             return reviewRepository.save(review);
         });

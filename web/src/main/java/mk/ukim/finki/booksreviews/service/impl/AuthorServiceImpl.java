@@ -9,6 +9,8 @@ import mk.ukim.finki.booksreviews.repository.AuthorRepository;
 import mk.ukim.finki.booksreviews.repository.BookRepository;
 import mk.ukim.finki.booksreviews.service.AuthorService;
 import mk.ukim.finki.booksreviews.util.ValidationUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,11 +31,12 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    public Page<Author> findAllPageable(Pageable pageable) {
+        return authorRepository.findAll(pageable);
+    }
+
+    @Override
     public List<Author> findAllByBook(Long bookId) {
-//        return authorRepository.findAll().stream()
-//                .filter(author -> author.getBooks().stream()
-//                        .anyMatch(book -> book.getId().equals(bookId)))
-//                .collect(Collectors.toList());
         return authorRepository.findAllByBooks_Id(bookId);
     }
 
@@ -64,10 +67,10 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void addBookToAuthor(Long id, Long bookId) {
-        findById(id).ifPresent(author -> bookRepository.findById(bookId).ifPresent(book -> {
+    public Optional<Author> addBookToAuthor(Long id, Long bookId) {
+        return findById(id).flatMap(author -> bookRepository.findById(bookId).map(book -> {
             author.addBook(book);
-            authorRepository.save(author);
+            return authorRepository.save(author);
         }));
     }
 }

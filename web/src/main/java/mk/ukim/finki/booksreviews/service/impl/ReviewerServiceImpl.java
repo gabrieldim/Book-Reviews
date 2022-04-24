@@ -5,10 +5,11 @@ import mk.ukim.finki.booksreviews.model.Role;
 import mk.ukim.finki.booksreviews.model.User;
 import mk.ukim.finki.booksreviews.model.entity.Reviewer;
 import mk.ukim.finki.booksreviews.model.request.ReviewerRequest;
-import mk.ukim.finki.booksreviews.repository.ReviewRepository;
 import mk.ukim.finki.booksreviews.repository.ReviewerRepository;
 import mk.ukim.finki.booksreviews.service.ReviewerService;
 import mk.ukim.finki.booksreviews.util.ValidationUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +22,15 @@ import java.util.Optional;
 public class ReviewerServiceImpl implements ReviewerService {
 
     private final ReviewerRepository reviewerRepository;
-    private final ReviewRepository reviewRepository;
 
     @Override
     public List<Reviewer> findAll() {
         return reviewerRepository.findAll();
+    }
+
+    @Override
+    public Page<Reviewer> findAllPageable(Pageable pageable) {
+        return reviewerRepository.findAll(pageable);
     }
 
     @Override
@@ -56,13 +61,5 @@ public class ReviewerServiceImpl implements ReviewerService {
     @Override
     public Optional<Reviewer> loginReviewer(ReviewerRequest reviewerRequest) {
         return reviewerRepository.findByUser_EmailAndUser_Password(reviewerRequest.getEmail(), reviewerRequest.getPassword());
-    }
-
-    @Override
-    public void addReviewToReviewer(Long id, Long reviewId) {
-        findById(id).ifPresent(reviewer -> reviewRepository.findById(reviewId).ifPresent(review -> {
-            reviewer.addReview(review);
-            reviewerRepository.save(reviewer);
-        }));
     }
 }

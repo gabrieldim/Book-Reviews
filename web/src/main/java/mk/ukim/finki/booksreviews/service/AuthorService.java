@@ -2,6 +2,8 @@ package mk.ukim.finki.booksreviews.service;
 
 import mk.ukim.finki.booksreviews.model.entity.Author;
 import mk.ukim.finki.booksreviews.model.request.AuthorRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +11,8 @@ import java.util.Optional;
 public interface AuthorService {
 
     List<Author> findAll();
+
+    Page<Author> findAllPageable(Pageable pageable);
 
     List<Author> findAllByBook(Long bookId);
 
@@ -18,5 +22,5 @@ public interface AuthorService {
 
     Optional<Author> loginAuthor(AuthorRequest authorRequest);
 
-    void addBookToAuthor(Long id, Long bookId);
+    Optional<Author> addBookToAuthor(Long id, Long bookId);
 }

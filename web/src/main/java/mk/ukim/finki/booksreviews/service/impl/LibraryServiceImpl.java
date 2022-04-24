@@ -6,6 +6,8 @@ import mk.ukim.finki.booksreviews.model.request.LibraryRequest;
 import mk.ukim.finki.booksreviews.repository.BookRepository;
 import mk.ukim.finki.booksreviews.repository.LibraryRepository;
 import mk.ukim.finki.booksreviews.service.LibraryService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +28,11 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
+    public Page<Library> findAllPageable(Pageable pageable) {
+        return libraryRepository.findAll(pageable);
+    }
+
+    @Override
     public List<Library> findAllByBook(Long bookId) {
         return libraryRepository.findAllByBooks_Id(bookId);
     }
@@ -42,10 +49,10 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public void addBookToLibrary(Long id, Long bookId) {
-        findById(id).ifPresent(library -> bookRepository.findById(bookId).ifPresent(book -> {
+    public Optional<Library> addBookToLibrary(Long id, Long bookId) {
+        return findById(id).flatMap(library -> bookRepository.findById(bookId).map(book -> {
             library.addBook(book);
-            libraryRepository.save(library);
+            return libraryRepository.save(library);
         }));
     }
 }

@@ -5,9 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
@@ -21,9 +20,8 @@ public class AuthorRequest {
     private String lastName;
     @NotBlank
     private String email;
-    @Min(5)
-    @Max(30)
     @NotBlank
+    @Size(min = 5, max = 30)
     private String password;
 
     @Nullable
