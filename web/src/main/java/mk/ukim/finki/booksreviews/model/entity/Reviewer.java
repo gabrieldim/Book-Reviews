@@ -1,8 +1,9 @@
 package mk.ukim.finki.booksreviews.model.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import mk.ukim.finki.booksreviews.model.User;
+import mk.ukim.finki.booksreviews.model.Role;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -13,20 +14,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity(name = "Reviewer")
-public class Reviewer {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @AttributeOverrides({
-            @AttributeOverride(name = "firstName", column = @Column),
-            @AttributeOverride(name = "lastName", column = @Column),
-            @AttributeOverride(name = "role", column = @Column),
-            @AttributeOverride(name = "email", column = @Column),
-            @AttributeOverride(name = "password", column = @Column)
-    })
-    private User user;
+@EqualsAndHashCode(callSuper = true)
+public class Reviewer extends User {
 
     private String favoriteQuote;
 
@@ -38,9 +27,14 @@ public class Reviewer {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Review> reviews;
 
-    public static Reviewer of(User user, String favoriteQuote, String bioDescription) {
+    public static Reviewer of(String firstName, String lastName, String email, String password,
+                              String favoriteQuote, String bioDescription) {
         Reviewer reviewer = new Reviewer();
-        reviewer.user = user;
+        reviewer.setFirstName(firstName);
+        reviewer.setLastName(lastName);
+        reviewer.setRole(Role.REVIEWER.name());
+        reviewer.setEmail(email);
+        reviewer.setPassword(password);
         reviewer.favoriteQuote = favoriteQuote;
         reviewer.bioDescription = bioDescription;
         reviewer.reviews = new ArrayList<>();

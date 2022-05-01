@@ -1,8 +1,6 @@
 package mk.ukim.finki.booksreviews.service.impl;
 
 import lombok.AllArgsConstructor;
-import mk.ukim.finki.booksreviews.model.Role;
-import mk.ukim.finki.booksreviews.model.User;
 import mk.ukim.finki.booksreviews.model.entity.Author;
 import mk.ukim.finki.booksreviews.model.request.AuthorRequest;
 import mk.ukim.finki.booksreviews.repository.AuthorRepository;
@@ -50,12 +48,12 @@ public class AuthorServiceImpl implements AuthorService {
         if (!ValidationUtils.isValidUser(authorRequest.getEmail(), authorRequest.getPassword())) {
             return Optional.empty();
         }
-        if (authorRepository.findByUser_Email(authorRequest.getEmail()).isPresent()) {
+        if (authorRepository.findByEmail(authorRequest.getEmail()).isPresent()) {
             return Optional.empty();
         }
-        User user = User.of(authorRequest.getFirstName(), authorRequest.getLastName(), Role.AUTHOR.name(),
-                authorRequest.getEmail(), authorRequest.getPassword());
-        Author author = Author.of(user, authorRequest.getAge(), authorRequest.getBirthDate(),
+        Author author = Author.of(authorRequest.getFirstName(), authorRequest.getLastName(),
+                authorRequest.getEmail(), authorRequest.getPassword(),
+                authorRequest.getAge(), authorRequest.getBirthDate(),
                 authorRequest.getBioDescription(), authorRequest.getArtName());
 
         return Optional.of(authorRepository.save(author));
@@ -63,7 +61,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Optional<Author> loginAuthor(AuthorRequest authorRequest) {
-        return authorRepository.findByUser_EmailAndUser_Password(authorRequest.getEmail(), authorRequest.getPassword());
+        return authorRepository.findByEmailAndPassword(authorRequest.getEmail(), authorRequest.getPassword());
     }
 
     @Override

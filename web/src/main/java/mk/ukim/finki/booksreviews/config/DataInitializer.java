@@ -71,6 +71,8 @@ public class DataInitializer {
             reviewService.createReview(new ReviewRequest("Review Title 1", "Review Description 1", 4L, book1.map(Book::getId).orElse(null), reviewer1.map(Reviewer::getId).orElse(null)));
             reviewService.createReview(new ReviewRequest("Review Title 2", "Review Description 3", 5L, book1.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
             reviewService.createReview(new ReviewRequest("Review Title 3", "Review Description 3", 2L, book2.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
+            reviewService.createReview(new ReviewRequest("Review Title Shouldn't insert 1", "Review Description 3", 7L, book2.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
+            reviewService.createReview(new ReviewRequest("Review Title Shouldn't insert 2", "Review Description 3", 0L, book2.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
             reviewService.createReview(new ReviewRequest("Review Title 5", "Review Description 5", 4L, book3.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
             reviewService.createReview(new ReviewRequest("Review Title 6", "Review Description 6", 5L, book3.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
             reviewService.createReview(new ReviewRequest("Review Title 7", "Review Description 7", 4L, book2.map(Book::getId).orElse(null), reviewer1.map(Reviewer::getId).orElse(null)));

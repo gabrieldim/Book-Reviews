@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface AuthorRepository extends JpaRepository<Author, Long> {
     List<Author> findAllByBooks_Id(Long bookId);
 
-    Optional<Author> findByUser_Email(String email);
+    Optional<Author> findByEmail(String email);
 
-    Optional<Author> findByUser_EmailAndUser_Password(String email, String password);
+    Optional<Author> findByEmailAndPassword(String email, String password);
 }

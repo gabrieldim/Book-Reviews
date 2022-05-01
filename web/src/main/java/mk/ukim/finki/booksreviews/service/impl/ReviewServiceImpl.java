@@ -49,7 +49,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Optional<Review> createReview(ReviewRequest reviewRequest) {
-        Long rating = reviewRequest.getBookId();
+        Long rating = reviewRequest.getRating();
         if (Objects.isNull(rating) || rating < 1 || rating > 5) {
             return Optional.empty();
         }

@@ -1,8 +1,6 @@
 package mk.ukim.finki.booksreviews.service.impl;
 
 import lombok.AllArgsConstructor;
-import mk.ukim.finki.booksreviews.model.Role;
-import mk.ukim.finki.booksreviews.model.User;
 import mk.ukim.finki.booksreviews.model.entity.Reviewer;
 import mk.ukim.finki.booksreviews.model.request.ReviewerRequest;
 import mk.ukim.finki.booksreviews.repository.ReviewerRepository;
@@ -48,18 +46,18 @@ public class ReviewerServiceImpl implements ReviewerService {
         if (!ValidationUtils.isValidUser(reviewerRequest.getEmail(), reviewerRequest.getPassword())) {
             return Optional.empty();
         }
-        if (reviewerRepository.findByUser_Email(reviewerRequest.getEmail()).isPresent()) {
+        if (reviewerRepository.findByEmail(reviewerRequest.getEmail()).isPresent()) {
             return Optional.empty();
         }
-        User user = User.of(reviewerRequest.getFirstName(), reviewerRequest.getLastName(), Role.REVIEWER.name(),
-                reviewerRequest.getEmail(), reviewerRequest.getPassword());
-        Reviewer reviewer = Reviewer.of(user, reviewerRequest.getFavoriteQuote(), reviewerRequest.getBioDescription());
+        Reviewer reviewer = Reviewer.of(reviewerRequest.getFirstName(), reviewerRequest.getLastName(),
+                reviewerRequest.getEmail(), reviewerRequest.getPassword(),
+                reviewerRequest.getFavoriteQuote(), reviewerRequest.getBioDescription());
 
         return Optional.of(reviewerRepository.save(reviewer));
     }
 
     @Override
     public Optional<Reviewer> loginReviewer(ReviewerRequest reviewerRequest) {
-        return reviewerRepository.findByUser_EmailAndUser_Password(reviewerRequest.getEmail(), reviewerRequest.getPassword());
+        return reviewerRepository.findByEmailAndPassword(reviewerRequest.getEmail(), reviewerRequest.getPassword());
     }
 }

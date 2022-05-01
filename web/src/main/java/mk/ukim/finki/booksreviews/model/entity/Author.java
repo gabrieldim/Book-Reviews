@@ -1,8 +1,9 @@
 package mk.ukim.finki.booksreviews.model.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import mk.ukim.finki.booksreviews.model.User;
+import mk.ukim.finki.booksreviews.model.Role;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -14,20 +15,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity(name = "Author")
-public class Author {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @AttributeOverrides({
-            @AttributeOverride(name = "firstName", column = @Column),
-            @AttributeOverride(name = "lastName", column = @Column),
-            @AttributeOverride(name = "role", column = @Column),
-            @AttributeOverride(name = "email", column = @Column),
-            @AttributeOverride(name = "password", column = @Column)
-    })
-    private User user;
+@EqualsAndHashCode(callSuper = true)
+public class Author extends User {
 
     private Integer age;
 
@@ -43,10 +32,15 @@ public class Author {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Book> books;
 
-    public static Author of(User user, Integer age, LocalDateTime birthDate, String bioDescription,
+    public static Author of(String firstName, String lastName, String email, String password,
+                            Integer age, LocalDateTime birthDate, String bioDescription,
                             String artName) {
         Author author = new Author();
-        author.user = user;
+        author.setFirstName(firstName);
+        author.setLastName(lastName);
+        author.setRole(Role.AUTHOR.name());
+        author.setEmail(email);
+        author.setPassword(password);
         author.age = age;
         author.birthDate = birthDate;
         author.bioDescription = bioDescription;
