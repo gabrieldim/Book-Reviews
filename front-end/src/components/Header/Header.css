@@ -1,0 +1,17 @@
+.app-navigation{
+    background-color:  #20B2AA;
+}
+.text-brown{
+    text-decoration: none;
+    color:#ecfbfc;
+}
+.text-brown:hover{
+    color:#eae7d9;
+}
+.dropdown-toggle{
+    font-weight: bold;
+}
+.dropdown-toggle:hover{
+    cursor: pointer;
+}
+
