@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.app {
+  min-height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background: url('./images/Wallpaper.webp') fixed center center;
+}
