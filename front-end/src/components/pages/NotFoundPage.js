@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import './NotFound.css'
+import '../../style/NotFound.css'
 
-const NotFound = (props) => {
+export const NotFoundPage = () => {
     return (
         <div className="col-sm-4 ml-auto mr-auto p-5 mt-5" >
              <h1 className="title text-danger d-block mr-auto ml-auto text-center">
@@ -17,5 +17,3 @@ const NotFound = (props) => {
         </div>
     );
 };
-
-export default NotFound;
