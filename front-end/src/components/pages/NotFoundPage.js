@@ -4,16 +4,20 @@ import '../../style/NotFound.css'
 
 export const NotFoundPage = () => {
     return (
-        <div className="col-sm-4 ml-auto mr-auto p-5 mt-5" >
-             <h1 className="title text-danger d-block mr-auto ml-auto text-center">
-                    404
-                </h1>
-                <br/>
-                <div className="desc text-danger d-block mx-auto">
-                    The page you're looking for was not found.
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-sm-12 text-center">
+                    <h1 className="text-danger">
+                        404
+                    </h1>
+                    <p className="desc text-danger">
+                        The page you're looking for was not found.
+                    </p>
+                    <Link to="/">
+                        <button className="btn btn-block btn-large btn-warning w-25 m-auto">Go back</button>
+                    </Link>
                 </div>
-                <br/>
-                <Link to="/"><button className="btn btn-block btn-large btn-warning d-block mx-auto">Go back</button></Link>
+            </div>
         </div>
     );
 };
