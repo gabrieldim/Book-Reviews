@@ -4,7 +4,7 @@ import Auth from "../../service/authService";
 
 export const ProtectedRoute = ({component: Component, ...rest}) => {
 
-    const [is_auth, setAuth] = useState(false);
+    const [is_auth, setAuth] = useState(true);
     const [user_data, setUserData] = useState({});
 
     useEffect(() => {
@@ -20,6 +20,7 @@ export const ProtectedRoute = ({component: Component, ...rest}) => {
             {...rest}
             render={props => {
                 if(is_auth) {
+                    props.user_data = user_data;
                     return <Component {...props}/>;
                 }
                 else{

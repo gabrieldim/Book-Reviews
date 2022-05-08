@@ -1,10 +1,33 @@
 import React  from 'react';
+import {Header} from '../Header/Header';
+import {BookSnippet} from '../BookSnippet/BookSnippet';
 
-export const HomePage = () => {
+export const HomePage = (props) => {
+
 
     return (
-        <div>
-            <h1 className="text-center"> Hello, this is your homepage</h1>
+        <div className="container-fluid">
+            <Header />
+            <div className="row p-3">
+                <div className="col-sm-2">
+                   <BookSnippet />
+                </div>
+                <div className="col-sm-2">
+                    <BookSnippet />
+                </div>
+                <div className="col-sm-2">
+                    <BookSnippet />
+                </div>
+                <div className="col-sm-2">
+                    <BookSnippet />
+                </div>
+                <div className="col-sm-2">
+                    <BookSnippet />
+                </div>
+                <div className="col-sm-2">
+                    <BookSnippet />
+                </div>
+            </div>
         </div>
     )
 };

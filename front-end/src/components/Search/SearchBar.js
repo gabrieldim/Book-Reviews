@@ -1,23 +1,28 @@
-import React from 'react';
-import {withRouter} from 'react-router-dom';
+import React, {useState} from 'react';
 import { toast } from 'react-toastify';
 
-const SearchBar = (props) => {
-    const handleSubmit=(e)=>{
-        e.preventDefault();
-        let searchword = document.getElementById("searchword").value;
-        if(searchword.length <3){
-            toast.error("Searchword must be longer than 2");
+export const SearchBar = (props) => {
+
+    const [search_phrase, setSearchPhrase] = useState(0);
+
+    const handleChange = (e) => {
+        setSearchPhrase(e.target.value);
+    }
+
+    const submitSearch = () => {
+        if(search_phrase.length <3){
+            toast.error("Search phrase must be longer than 2");
         }
         else{
-        props.history.push("/search/"+searchword);}
+            props.history.push("/search/"+search_phrase);
+        }
     }
     return (
-    <form onSubmit={handleSubmit} className="form-inline my-2 my-lg-0 mx-auto">
-      <input className="form-control mr-sm-2" type="search" id="searchword" placeholder="Search books" aria-label="Search"/>
-      <button className="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-    </form>
+        <div className="input-group w-50 m-auto">
+          <input className="form-control" type="search" placeholder="Search books" aria-label="Search"
+                 onChange={(e) => handleChange(e)} />
+          <button className="btn btn-outline-light" onClick={() => submitSearch()}>Search</button>
+        </div>
     );
 };
 
-export default withRouter(SearchBar);
