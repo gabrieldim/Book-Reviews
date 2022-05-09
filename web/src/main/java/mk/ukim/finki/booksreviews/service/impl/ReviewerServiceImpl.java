@@ -46,7 +46,7 @@ public class ReviewerServiceImpl implements ReviewerService {
         if (!ValidationUtils.isValidUser(reviewerRequest.getEmail(), reviewerRequest.getPassword())) {
             return Optional.empty();
         }
-        if (reviewerRepository.findByEmail(reviewerRequest.getEmail()).isPresent()) {
+        if (reviewerRepository.findByEmail(reviewerRequest.getEmail()).isEmpty()) {
             return Optional.empty();
         }
         Reviewer reviewer = Reviewer.of(reviewerRequest.getFirstName(), reviewerRequest.getLastName(),

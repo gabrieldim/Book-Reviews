@@ -7,7 +7,6 @@ import mk.ukim.finki.booksreviews.repository.BookRepository;
 import mk.ukim.finki.booksreviews.repository.ReviewRepository;
 import mk.ukim.finki.booksreviews.repository.ReviewerRepository;
 import mk.ukim.finki.booksreviews.service.ReviewService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,9 +22,9 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
 
-    private ReviewRepository reviewRepository;
-    private BookRepository bookRepository;
-    private ReviewerRepository reviewerRepository;
+    private final ReviewRepository reviewRepository;
+    private final BookRepository bookRepository;
+    private final ReviewerRepository reviewerRepository;
 
     @Override
     public List<Review> findAll() {
@@ -70,15 +69,12 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Optional<Review> updateReview(Long id, ReviewRequest reviewRequest) {
         return findById(id).map(review -> {
-            review.setDescription(StringUtils.isNotBlank(reviewRequest.getDescription())
-                    ? reviewRequest.getDescription() : review.getDescription());
-            review.setTitle(StringUtils.isNotBlank(reviewRequest.getTitle())
-                    ? reviewRequest.getTitle() : review.getTitle());
-            review.setBookId(Objects.nonNull(reviewRequest.getBookId())
-                    ? reviewRequest.getBookId() : review.getBookId());
-            Long rating = reviewRequest.getBookId();
-            review.setRating(Objects.nonNull(rating) && rating >= 1 && rating <= 5
-                    ? reviewRequest.getRating() : review.getRating());
+            review.setDescription(reviewRequest.getDescription());
+            review.setTitle(reviewRequest.getTitle());
+            review.setBookId(reviewRequest.getBookId());
+            Long rating = reviewRequest.getRating();
+            review.setRating((Objects.nonNull(rating) && rating >= 1 && rating <= 5)
+                    ? rating : review.getRating());
             return reviewRepository.save(review);
         });
     }

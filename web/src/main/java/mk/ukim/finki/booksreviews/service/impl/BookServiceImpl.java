@@ -7,7 +7,6 @@ import mk.ukim.finki.booksreviews.repository.AuthorRepository;
 import mk.ukim.finki.booksreviews.repository.BookRepository;
 import mk.ukim.finki.booksreviews.repository.LibraryRepository;
 import mk.ukim.finki.booksreviews.service.BookService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -67,18 +66,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public Optional<Book> updateBook(Long id, BookRequest bookRequest) {
         return findById(id).map(book -> {
-            book.setDescription(StringUtils.isNotBlank(bookRequest.getDescription())
-                    ? bookRequest.getDescription() : book.getDescription());
-            book.setAvailability(Objects.nonNull(bookRequest.getAvailability())
-                    ? bookRequest.getAvailability() : book.getAvailability());
-            book.setGenre(StringUtils.isNotBlank(bookRequest.getGenre())
-                    ? bookRequest.getGenre() : book.getGenre());
-            book.setQuote(StringUtils.isNotBlank(bookRequest.getQuote())
-                    ? bookRequest.getQuote() : book.getQuote());
-            book.setPreviewLink(StringUtils.isNotBlank(bookRequest.getPreviewLink())
-                    ? bookRequest.getPreviewLink() : book.getPreviewLink());
-            book.setTitle(StringUtils.isNotBlank(bookRequest.getTitle())
-                    ? bookRequest.getTitle() : book.getTitle());
+            book.setTitle(bookRequest.getTitle());
+            book.setDescription(bookRequest.getDescription());
+            book.setGenre(bookRequest.getGenre());
+            book.setQuote(bookRequest.getQuote());
+            book.setPreviewLink(bookRequest.getPreviewLink());
+            book.setAvailability(bookRequest.getAvailability());
             return bookRepository.save(book);
         });
     }
