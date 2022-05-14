@@ -1,4 +1,4 @@
-package mk.ukim.finki.booksreviews.config;
+package mk.ukim.finki.booksreviews.bootstrap;
 
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.booksreviews.model.entity.Author;
@@ -8,6 +8,7 @@ import mk.ukim.finki.booksreviews.model.entity.Reviewer;
 import mk.ukim.finki.booksreviews.model.request.*;
 import mk.ukim.finki.booksreviews.service.*;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
+@Profile("server")
 @AllArgsConstructor
 public class DataInitializer {
 
