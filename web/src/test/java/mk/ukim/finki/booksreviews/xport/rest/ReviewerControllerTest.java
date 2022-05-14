@@ -1,5 +1,4 @@
 package mk.ukim.finki.booksreviews.xport.rest;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +13,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class AuthorControllerTest {
+public class ReviewerControllerTest {
 
     MockMvc mockMvc;
 
@@ -28,13 +27,13 @@ public class AuthorControllerTest {
     }
 
     @Test
-    public void testGetAllAuthors() throws Exception {
-        MockHttpServletRequestBuilder authorRequest = MockMvcRequestBuilders.get("/api/author");
-        this.mockMvc.perform(authorRequest)
+    public void testGetAllReviewers() throws Exception {
+        MockHttpServletRequestBuilder reviewerRequest = MockMvcRequestBuilders.get("/api/reviewer");
+        this.mockMvc.perform(reviewerRequest)
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                ;
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
+
 
 }
