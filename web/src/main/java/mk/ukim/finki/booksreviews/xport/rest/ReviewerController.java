@@ -52,7 +52,7 @@ public class ReviewerController {
     }
 
     @GetMapping("/review/{reviewId}")
-    public List<Reviewer> getAllReviewersByBook(@PathVariable Long reviewId) {
+    public List<Reviewer> getAllReviewersByReview(@PathVariable Long reviewId) {
         return reviewerService.findAllByReview(reviewId);
     }
 }

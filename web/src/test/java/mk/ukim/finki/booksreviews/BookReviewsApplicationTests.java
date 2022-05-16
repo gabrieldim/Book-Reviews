@@ -1,13 +1,12 @@
 package mk.ukim.finki.booksreviews;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BookReviewsApplicationTests {
+public class BookReviewsApplicationTests {
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
     }
-
 }
