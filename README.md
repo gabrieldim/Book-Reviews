@@ -51,3 +51,5 @@ The endponits that the Spring back-end consists of are the following: <br/>
 -----------------------
 
 The endponits that the Flask back-end consists of are the following: <br/>
+  - GET /v1/api/model - get_model_output(json format)
+  - POST /v1/api/model - model_prediction (requests 'comment/review' as a string)
