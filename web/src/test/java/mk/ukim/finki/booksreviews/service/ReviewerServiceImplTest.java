@@ -26,9 +26,9 @@ public class ReviewerServiceImplTest {
 
     List<Reviewer> reviewerList = List.of(
             Reviewer.of("Nikola", "Stanojkovski", "stanojkovski@gmail.com", "nikolaS@123", "Favourite quote 1", "Some bio 1"),
-            Reviewer.of("Gabriel", "Dimitrievski", "dimitrievski@gmail.com", "dimitR1ev123", "Favourite quote 2",  "Some bio 2"),
-            Reviewer.of("Jovana", "Kocevska", "kocevska@gmail.com", "kovecsk@1a", "Favourite quote 3",  "Some bio 3"),
-            Reviewer.of("Petar", "Bujukovski", "bujukovski@gmail.com", "buko@vsk123", "Favourite quote 4",  "Some bio 4"),
+            Reviewer.of("Gabriel", "Dimitrievski", "dimitrievski@gmail.com", "dimitR1ev123", "Favourite quote 2", "Some bio 2"),
+            Reviewer.of("Jovana", "Kocevska", "kocevska@gmail.com", "kovecsk@1a", "Favourite quote 3", "Some bio 3"),
+            Reviewer.of("Petar", "Bujukovski", "bujukovski@gmail.com", "buko@vsk123", "Favourite quote 4", "Some bio 4"),
             Reviewer.of("Merxhan", "Bajrami", "stanojkovski@gmail.com", "stan0s123", "Favourite quote 5", "Some bio 5")
     );
 
@@ -89,18 +89,18 @@ public class ReviewerServiceImplTest {
     public void testRegisterReviewer() {
         Reviewer registeredReviewer = reviewerList.get(0);
         when(reviewerRepository.save(Mockito.any(Reviewer.class))).thenReturn(registeredReviewer);
-        when(reviewerRepository.findByEmail(registeredReviewer.getEmail())).thenReturn(Optional.of(registeredReviewer));
+        when(reviewerRepository.findByEmail(anyString())).thenReturn(Optional.of(reviewerList.get(1))).thenReturn(Optional.empty());
 
         ReviewerRequest invalidEmailPasswordReviewerRequest = new ReviewerRequest(registeredReviewer.getFirstName(), registeredReviewer.getLastName(),
                 "invalidemail", "invalidpassword", registeredReviewer.getFavoriteQuote(), registeredReviewer.getBioDescription());
         assertThat(reviewerService.registerReviewer(invalidEmailPasswordReviewerRequest)).isNotNull().isNotPresent();
 
         ReviewerRequest invalidEmailReviewerRequest = new ReviewerRequest(registeredReviewer.getFirstName(), registeredReviewer.getLastName(),
-                reviewerList.get(1).getEmail(), registeredReviewer.getPassword(), registeredReviewer.getFavoriteQuote(),registeredReviewer.getBioDescription());
+                reviewerList.get(1).getEmail(), registeredReviewer.getPassword(), registeredReviewer.getFavoriteQuote(), registeredReviewer.getBioDescription());
         assertThat(reviewerService.registerReviewer(invalidEmailReviewerRequest)).isNotNull().isNotPresent();
 
         ReviewerRequest validReviewerRequest = new ReviewerRequest(registeredReviewer.getFirstName(), registeredReviewer.getLastName(),
-                registeredReviewer.getEmail(), registeredReviewer.getPassword(), registeredReviewer.getFavoriteQuote(),registeredReviewer.getBioDescription());
+                registeredReviewer.getEmail(), registeredReviewer.getPassword(), registeredReviewer.getFavoriteQuote(), registeredReviewer.getBioDescription());
         assertThat(reviewerService.registerReviewer(validReviewerRequest)).isNotNull().isPresent().isEqualTo(Optional.of(registeredReviewer));
 
         verify(reviewerRepository, times(1)).findByEmail(registeredReviewer.getEmail());

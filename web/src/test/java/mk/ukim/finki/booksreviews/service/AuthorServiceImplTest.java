@@ -97,7 +97,7 @@ public class AuthorServiceImplTest {
     public void testRegisterAuthor() {
         Author registeredAuthor = authorList.get(0);
         when(authorRepository.save(Mockito.any(Author.class))).thenReturn(registeredAuthor);
-        when(authorRepository.findByEmail(registeredAuthor.getEmail())).thenReturn(Optional.of(registeredAuthor));
+        when(authorRepository.findByEmail(anyString())).thenReturn(Optional.of(authorList.get(1))).thenReturn(Optional.empty());
 
         AuthorRequest invalidEmailPasswordAuthorRequest = new AuthorRequest(registeredAuthor.getFirstName(), registeredAuthor.getLastName(),
                 "invalidemail", "invalidpassword", registeredAuthor.getAge(), registeredAuthor.getBirthDate(),

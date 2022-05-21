@@ -48,7 +48,7 @@ public class AuthorServiceImpl implements AuthorService {
         if (!ValidationUtils.isValidUser(authorRequest.getEmail(), authorRequest.getPassword())) {
             return Optional.empty();
         }
-        if (authorRepository.findByEmail(authorRequest.getEmail()).isEmpty()) {
+        if (authorRepository.findByEmail(authorRequest.getEmail()).isPresent()) {
             return Optional.empty();
         }
         Author author = Author.of(authorRequest.getFirstName(), authorRequest.getLastName(),
