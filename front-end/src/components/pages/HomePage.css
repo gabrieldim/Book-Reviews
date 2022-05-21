@@ -1,0 +1,52 @@
+.container-1 {
+    background-color: #B5F6CF;
+}
+
+.container-lt-blue {
+    background-color: #92C1FF;
+}
+
+.container-lt-green {
+    background-color: #B5F6CF;
+}
+
+.lt-blue {
+    color: #92C1FF;
+}
+.book-shell {
+    width: 70%;
+    float: right;
+    height: 600px;
+}
+
+.see-more-button {
+    background-color: #B5F6CF;
+    border: none;
+    width: 18rem;
+    height: 3.5rem;
+    font-weight: bold;
+    color: #111E54;
+}
+
+.not-a-member {
+    border: none;
+    background-color: #92C1FF;
+    color: #111E54;
+    font-weight: bold;
+    font-size: 20px;
+    width: 270px;
+}
+
+.category-container {
+    font-size: 24px;
+    text-decoration: underline;
+}
+
+.category-container li:hover {
+    cursor: pointer;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}

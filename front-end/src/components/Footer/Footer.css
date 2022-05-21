@@ -1,0 +1,13 @@
+.footer {
+    background-color: black;
+    min-height: 3rem;
+
+}
+
+.footer a {
+    color: white;
+}
+
+.footer a:hover {
+    text-decoration: none;
+}

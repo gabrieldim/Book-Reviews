@@ -6,6 +6,9 @@ import {SignupPage} from "./components/pages/SignupPage";
 import {LoginPage} from "./components/pages/LoginPage";
 import {ProtectedRoute} from "./components/routes/protected.route";
 import {NotFoundPage} from "./components/pages/NotFoundPage";
+import {BooksPage} from "./components/pages/BooksPage";
+import {ReviewsPage} from "./components/pages/ReviewsPage";
+import {AuthorsPage} from "./components/pages/AuthorsPage";
 
 const App = () => {
     return (
@@ -15,6 +18,9 @@ const App = () => {
               <ProtectedRoute path={"/"} component={HomePage} exact/>
               <Route path={"/login"} component={LoginPage} />
               <Route path={"/signup"} component={SignupPage} />
+              <ProtectedRoute path={"/books"} component={BooksPage} />
+              <ProtectedRoute path={"/reviews"} component={ReviewsPage} />
+              <ProtectedRoute path={"/authors"} component={AuthorsPage} />
               <Route path={"*"} component={NotFoundPage} />
             </Switch>
           </BrowserRouter>
