@@ -1,7 +1,10 @@
 package mk.ukim.finki.booksreviews.xport.rest;
 
+import mk.ukim.finki.booksreviews.model.entity.Author;
+import mk.ukim.finki.booksreviews.service.AuthorService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,7 +18,7 @@ import org.springframework.web.context.WebApplicationContext;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class AuthorControllerTest {
-
+    private AuthorService authorService;
     MockMvc mockMvc;
 
     @BeforeEach
@@ -29,6 +32,7 @@ public class AuthorControllerTest {
 
     @Test
     public void testGetAllAuthors() throws Exception {
+
         MockHttpServletRequestBuilder authorRequest = MockMvcRequestBuilders.get("/api/author");
         this.mockMvc.perform(authorRequest)
                 .andDo(MockMvcResultHandlers.print())
@@ -36,5 +40,17 @@ public class AuthorControllerTest {
                 ;
 
     }
+
+    @Test
+    public void testGetAllAuthorsPageable() throws Exception {
+
+        MockHttpServletRequestBuilder authorpageableRequest = MockMvcRequestBuilders.get("/api/author/page");
+        this.mockMvc.perform(authorpageableRequest)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+        ;
+
+    }
+
 
 }

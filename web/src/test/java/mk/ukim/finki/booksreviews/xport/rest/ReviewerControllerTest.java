@@ -34,6 +34,13 @@ public class ReviewerControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
+    @Test
+    public void testGetAllReviewersPageable() throws Exception {
+        MockHttpServletRequestBuilder reviewerpageableRequest = MockMvcRequestBuilders.get("/api/reviewer/page");
+        this.mockMvc.perform(reviewerpageableRequest)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
+    }
 
 }

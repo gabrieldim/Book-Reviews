@@ -34,6 +34,21 @@ public class LibraryControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
+    @Test
+    public void testGetAllLibrariesPageable() throws Exception {
+        MockHttpServletRequestBuilder librarypageableRequest = MockMvcRequestBuilders.get("/api/library/page");
+        this.mockMvc.perform(librarypageableRequest)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
+    }
 
+    @Test
+    public void testCreateLibrary() throws Exception {
+        MockHttpServletRequestBuilder createlibraryRequest = MockMvcRequestBuilders.get("/api/library/");
+        this.mockMvc.perform(createlibraryRequest)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+    }
 }
