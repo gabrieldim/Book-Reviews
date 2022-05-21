@@ -1,24 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ACCESS_TOKEN} from "../../../constants/index"
-import {withRouter} from 'react-router-dom'
 import Auth from "../../../service/authService"
 import { toast, ToastPosition } from 'react-toastify';
 import './Login.css'
-const Login = (props) => {
+
+export const Login = () => {
+
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        let email = document.getElementById("email");
-        let passsword = document.getElementById("password");
+
         let loginRequest={
-            usernameOrEmail: email.value,
-            password: passsword.value
+            usernameOrEmail: email,
+            password: password
         };
+
         Auth.login(loginRequest)
             .then((response)=>{
                 localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
-                props.onLogin();
-                props.history.push("/")
             }).catch(error =>{
                 let code=error.message.slice(error.message.length-3).trim();
                 if(code === '401'){
@@ -27,16 +28,19 @@ const Login = (props) => {
             });
         
     }
+
     return (
         <form onSubmit={handleSubmit}>
             <div className="col-sm-4 ml-auto mr-auto p-5 mt-5 login-background"
                  >
                 <label htmlFor="address">Email or Username:</label>
-                <input id="email" className="form-control text-center" autoFocus type="text"
+                <input id="email" onChange={(e) => {setEmail(e.target.value)}}
+                       className="form-control text-center" autoFocus type="text"
                      required />
                 <br/>
                 <label htmlFor="password">Password:</label>
-                <input id="password" className="form-control text-center" type="password" required/>
+                <input id="password" onChange={(e) => setPassword(e.target.value)}
+                       className="form-control text-center" type="password" required/>
                 <br/>
                 <div className="col-sm-8 ml-auto mr-auto">
                     <button type={'submit'} className="btn btn-info btn-block btnColor">Sign in</button>
@@ -45,5 +49,3 @@ const Login = (props) => {
         </form>
     );
 };
-
-export default withRouter(Login);

@@ -1,6 +1,7 @@
 import { ACCESS_TOKEN} from '../constants';
 import axios from "../custom-axios/axios";
 import jwt from 'jsonwebtoken'
+import instance from "../custom-axios/axios";
 
 const apiUtils = {
     get: (url) => {
@@ -12,7 +13,7 @@ const apiUtils = {
     },
     post: (url, body) => {
         const data = JSON.stringify(body);
-        return axios.post(url, data, {
+        return instance.post(url, data, {
             headers: {
                 Authorization: token(),
                 'content-type': 'application/json'

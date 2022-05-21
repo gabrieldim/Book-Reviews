@@ -1,17 +1,16 @@
-.app-navigation{
-    background-color:  #20B2AA;
+.navbar-custom{
+    background-color: #B5F6CF;
 }
-.text-brown{
-    text-decoration: none;
-    color:#ecfbfc;
+.navbar-logo {
+    width: 100px;
 }
-.text-brown:hover{
-    color:#eae7d9;
-}
-.dropdown-toggle{
-    font-weight: bold;
-}
-.dropdown-toggle:hover{
-    cursor: pointer;
+.navbar-element {
+    margin-left: 2rem;
+    font-size: 1.3rem;
+    color: #111E54;
 }
 
+.navbar-custom a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}

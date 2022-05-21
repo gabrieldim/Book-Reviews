@@ -1,0 +1,14 @@
+.author-snippet {
+    border-radius: 4px 4px 4px 4px;
+    border: 1px solid #ccc;
+    margin-top: 2rem;
+
+}
+
+.author-titles {
+    min-width: 150px;
+}
+
+.author-name {
+    color: #92C1FF;
+}

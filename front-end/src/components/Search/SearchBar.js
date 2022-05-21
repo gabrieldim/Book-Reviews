@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { toast } from 'react-toastify';
+import './SearchBar.css';
 
 export const SearchBar = (props) => {
 
@@ -19,7 +20,7 @@ export const SearchBar = (props) => {
     }
     return (
         <div className="input-group w-50 m-auto">
-          <input className="form-control" type="search" placeholder="Search books" aria-label="Search"
+          <input className="form-control book-search" type="search" placeholder="Search books" aria-label="Search"
                  onChange={(e) => handleChange(e)} />
           <button className="btn btn-outline-light" onClick={() => submitSearch()}>Search</button>
         </div>
