@@ -36,6 +36,7 @@ public class SentimentGeneratorClient {
             HttpEntity<String> entity = new HttpEntity<>(requestJson, headers);
             return restTemplate.postForObject(uri().path("/v1/api/model").build().toUri(), entity, String.class);
         } catch (Exception e) {
+            e.printStackTrace();
             return StringUtils.EMPTY;
         }
     }

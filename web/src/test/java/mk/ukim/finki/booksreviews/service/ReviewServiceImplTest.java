@@ -127,27 +127,4 @@ public class ReviewServiceImplTest {
         verify(bookRepository, times(1)).save(any(Book.class));
         verify(bookRepository, times(1)).findById(bookId);
     }
-
-    @Test
-    public void testUpdateReview() {
-        Long reviewId = 2L;
-        Review createdReviewValidRating = reviewList.get(0);
-        Review createdReviewInvalidRating = reviewList.get(2);
-        ReviewRequest reviewRequestValidRating = new ReviewRequest("Review request title 1", "Review request description 1", 2L, 10L, 11L);
-        ReviewRequest reviewRequestInvalidRating = new ReviewRequest("Review request title 2", "Review request description 2", 10L, 10L, 11L);
-        Review updatedReviewValidRating = Review.of(reviewRequestValidRating.getTitle(), reviewRequestValidRating.getDescription(), createdReviewValidRating.getRating(), bookId, createdReviewValidRating.getDate(), "positive");
-        Review updatedReviewInvalidRating = Review.of(reviewRequestInvalidRating.getTitle(), reviewRequestInvalidRating.getDescription(), createdReviewInvalidRating.getRating(), bookId, createdReviewInvalidRating.getDate(), "negative");
-
-        when(reviewRepository.findById(reviewId)).thenReturn(Optional.of(updatedReviewValidRating)).thenReturn(Optional.of(updatedReviewInvalidRating));
-        when(reviewRepository.save(any(Review.class))).thenReturn(updatedReviewValidRating).thenReturn(updatedReviewInvalidRating);
-
-        assertThat(reviewService.updateReview(reviewId, reviewRequestValidRating)).isNotNull().isPresent().isEqualTo(Optional.of(updatedReviewValidRating));
-        Optional<Review> updatedInvalidRatingReview = reviewService.updateReview(reviewId, reviewRequestInvalidRating);
-        assertThat(updatedInvalidRatingReview).isNotNull().isPresent().isEqualTo(updatedInvalidRatingReview);
-        assertThat(updatedInvalidRatingReview.get().getRating()).isNotNull().isNotEqualTo(Optional.of(updatedReviewInvalidRating.getRating())).isEqualTo(createdReviewInvalidRating.getRating());
-
-        verify(reviewRepository, times(2)).findById(reviewId);
-        verify(reviewRepository, times(1)).save(updatedReviewValidRating);
-        verify(reviewRepository, times(1)).save(updatedReviewInvalidRating);
-    }
 }

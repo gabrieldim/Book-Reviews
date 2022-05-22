@@ -1,11 +1,7 @@
 package mk.ukim.finki.booksreviews.xport.rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import mk.ukim.finki.booksreviews.model.entity.Author;
 import mk.ukim.finki.booksreviews.model.entity.Book;
 import mk.ukim.finki.booksreviews.model.entity.Review;
-import mk.ukim.finki.booksreviews.model.request.AuthorRequest;
 import mk.ukim.finki.booksreviews.model.request.BookRequest;
 import mk.ukim.finki.booksreviews.model.request.ReviewRequest;
 import mk.ukim.finki.booksreviews.service.BookService;
@@ -25,14 +21,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class BookControllerTest {
-    ObjectMapper objectMapper = new ObjectMapper();
-    ObjectWriter objectWriter = new ObjectMapper().writer();
+
     MockMvc mockMvc;
     @Autowired
     private ReviewService reviewService;
@@ -67,7 +61,6 @@ public class BookControllerTest {
     }
 
 
-
     @Test
     public void testGetById() throws Exception {
 
@@ -88,13 +81,13 @@ public class BookControllerTest {
             ;
         }
     }
+
     @Test
     public void testCreateBook() throws Exception {
         BookRequest bookRequestObject = new BookRequest("50th Law", "Motivational Book", "Motivation", "50@123", "live", true, 3L, null);
         Optional<Book> book = bookService.createBook(bookRequestObject);
 
         if (book.isPresent()) {
-
 
 
             MockHttpServletRequestBuilder bookRequest = MockMvcRequestBuilders.post("/api/book/")
@@ -130,6 +123,7 @@ public class BookControllerTest {
 
         }
     }
+
     @Test
     public void testGetAllBooksByReview() throws Exception {
         Optional<Review> review = reviewService.createReview(new ReviewRequest("Title 1", "Description 1", 5L, 3L, 1L), "positive");

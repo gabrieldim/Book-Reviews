@@ -65,17 +65,4 @@ public class ReviewServiceImpl implements ReviewService {
 
         return Optional.of(review);
     }
-
-    @Override
-    public Optional<Review> updateReview(Long id, ReviewRequest reviewRequest) {
-        return findById(id).map(review -> {
-            review.setDescription(reviewRequest.getDescription());
-            review.setTitle(reviewRequest.getTitle());
-            review.setBookId(reviewRequest.getBookId());
-            Long rating = reviewRequest.getRating();
-            review.setRating((Objects.nonNull(rating) && rating >= 1 && rating <= 5)
-                    ? rating : review.getRating());
-            return reviewRepository.save(review);
-        });
-    }
 }

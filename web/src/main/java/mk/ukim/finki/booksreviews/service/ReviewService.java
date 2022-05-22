@@ -19,6 +19,4 @@ public interface ReviewService {
     Optional<Review> findById(Long id);
 
     Optional<Review> createReview(ReviewRequest reviewRequest, String sentiment);
-
-    Optional<Review> updateReview(Long id, ReviewRequest reviewRequest);
 }

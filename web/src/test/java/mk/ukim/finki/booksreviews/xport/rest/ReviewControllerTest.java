@@ -27,7 +27,6 @@ import java.util.Optional;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ReviewControllerTest {
 
-
     MockMvc mockMvc;
     @Autowired
     private BookService bookService;
@@ -99,48 +98,20 @@ public class ReviewControllerTest {
         }
 
     }
-/*
+
     @Test
     public void testCreateReview() throws Exception {
-        ReviewRequest reviewRequestObject = new ReviewRequest("50th Law", "Motivational Book",  5L, 3L, 1L);
-        Optional<Review> review = reviewService.createReview(reviewRequestObject,"0.9");
+        ReviewRequest reviewRequestObject = new ReviewRequest("50th Law", "Motivational Book", 5L, 3L, 1L);
 
-        if (review.isPresent()) {
+        MockHttpServletRequestBuilder reviewRequest = MockMvcRequestBuilders.post("/api/review/")
+                .content(JsonUtils.asJsonString(reviewRequestObject))
+                .contentType(MediaType.APPLICATION_JSON);
 
-
-
-            MockHttpServletRequestBuilder reviewRequest = MockMvcRequestBuilders.post("/api/review/")
-                    .content(JsonUtils.asJsonString(reviewRequestObject))
-                    .contentType(MediaType.APPLICATION_JSON);
-
-            this.mockMvc.perform(reviewRequest)
-                    .andDo(MockMvcResultHandlers.print())
-                    .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-            ;
-
-        }
+        this.mockMvc.perform(reviewRequest)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+        ;
     }
 
-    @Test
-    public void testUpdateReview() throws Exception {
-        ReviewRequest reviewRequestObject = new ReviewRequest("50th Law", "Motivational Book",  5L, 3L, 1L);
-        Optional<Review> review = reviewService.createReview(reviewRequestObject);
-        if (review.isPresent()) {
-
-
-            MockHttpServletRequestBuilder reviewRequest = MockMvcRequestBuilders.put(String.format("/api/review/%d", review.get().getId()))
-                    .content(JsonUtils.asJsonString(reviewRequestObject))
-                    .contentType(MediaType.APPLICATION_JSON);
-
-            this.mockMvc.perform(reviewRequest)
-                    .andDo(MockMvcResultHandlers.print())
-                    .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-            ;
-
-        }
-    }
-
- */
 }

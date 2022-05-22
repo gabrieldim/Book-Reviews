@@ -45,13 +45,6 @@ public class ReviewController {
                 .orElseGet(() -> ResponseEntity.notFound().build()) : ResponseEntity.badRequest().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody @Valid ReviewRequest reviewRequest) {
-        return reviewService.updateReview(id, reviewRequest)
-                .map(review -> ResponseEntity.ok().body(review))
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
     @GetMapping("/page")
     public Page<Review> getAllReviewsPageable(Pageable pageable) {
         return reviewService.findAllPageable(pageable);
