@@ -70,18 +70,18 @@ public class DataInitializer {
             Optional<Reviewer> reviewer2 = reviewerService.registerReviewer(new ReviewerRequest("Merxan", "Bajrami", "bajrami@gmail.com", "merxanN@123",
                     "I love my life even more", "Merxan bio description"));
 
-            reviewService.createReview(new ReviewRequest("Review Title 1", "Review Description 1", 4L, book1.map(Book::getId).orElse(null), reviewer1.map(Reviewer::getId).orElse(null)));
-            reviewService.createReview(new ReviewRequest("Review Title 2", "Review Description 3", 5L, book1.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
-            reviewService.createReview(new ReviewRequest("Review Title 3", "Review Description 3", 2L, book2.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
-            reviewService.createReview(new ReviewRequest("Review Title Shouldn't insert 1", "Review Description 3", 7L, book2.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
-            reviewService.createReview(new ReviewRequest("Review Title Shouldn't insert 2", "Review Description 3", 0L, book2.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
-            reviewService.createReview(new ReviewRequest("Review Title 5", "Review Description 5", 4L, book3.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
-            reviewService.createReview(new ReviewRequest("Review Title 6", "Review Description 6", 5L, book3.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
-            reviewService.createReview(new ReviewRequest("Review Title 7", "Review Description 7", 4L, book2.map(Book::getId).orElse(null), reviewer1.map(Reviewer::getId).orElse(null)));
-            reviewService.createReview(new ReviewRequest("Review Title 8", "Review Description 8", 5L, book4.map(Book::getId).orElse(null), reviewer1.map(Reviewer::getId).orElse(null)));
-            reviewService.createReview(new ReviewRequest("Review Title 9", "Review Description 9", 2L, book4.map(Book::getId).orElse(null), reviewer1.map(Reviewer::getId).orElse(null)));
-            reviewService.createReview(new ReviewRequest("Review Title 10", "Review Description 10", 3L, book5.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
-            reviewService.createReview(new ReviewRequest("Review Title 11", "Review Description 11", 4L, book5.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)));
+            reviewService.createReview(new ReviewRequest("Review Title 1", "Review Description 1", 4L, book1.map(Book::getId).orElse(null), reviewer1.map(Reviewer::getId).orElse(null)), "positive");
+            reviewService.createReview(new ReviewRequest("Review Title 2", "Review Description 3", 5L, book1.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)), "positive");
+            reviewService.createReview(new ReviewRequest("Review Title 3", "Review Description 3", 2L, book2.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)), "positive");
+            reviewService.createReview(new ReviewRequest("Review Title Shouldn't insert 1", "Review Description 3", 7L, book2.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)), "positive");
+            reviewService.createReview(new ReviewRequest("Review Title Shouldn't insert 2", "Review Description 3", 0L, book2.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)), "positive");
+            reviewService.createReview(new ReviewRequest("Review Title 5", "Review Description 5", 4L, book3.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)), "positive");
+            reviewService.createReview(new ReviewRequest("Review Title 6", "Review Description 6", 5L, book3.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)), "positive");
+            reviewService.createReview(new ReviewRequest("Review Title 7", "Review Description 7", 4L, book2.map(Book::getId).orElse(null), reviewer1.map(Reviewer::getId).orElse(null)), "positive");
+            reviewService.createReview(new ReviewRequest("Review Title 8", "Review Description 8", 5L, book4.map(Book::getId).orElse(null), reviewer1.map(Reviewer::getId).orElse(null)), "negative");
+            reviewService.createReview(new ReviewRequest("Review Title 9", "Review Description 9", 2L, book4.map(Book::getId).orElse(null), reviewer1.map(Reviewer::getId).orElse(null)), "negative");
+            reviewService.createReview(new ReviewRequest("Review Title 10", "Review Description 10", 3L, book5.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)), "negative");
+            reviewService.createReview(new ReviewRequest("Review Title 11", "Review Description 11", 4L, book5.map(Book::getId).orElse(null), reviewer2.map(Reviewer::getId).orElse(null)), "negative");
         }
     }
 }

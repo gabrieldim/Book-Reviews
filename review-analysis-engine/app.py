@@ -21,8 +21,7 @@ def index():
         # print(result[0]['label'])
         # print(result[0]['score'])
         value = {
-            "sentiment": result[0]['label'],
-            "score": result[0]['score']
+            "sentiment": result[0]['label']
         }
         json_result = json.dumps(value)
         model_prediction=json_result

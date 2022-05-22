@@ -1,6 +1,8 @@
 package mk.ukim.finki.booksreviews.service;
 
-import mk.ukim.finki.booksreviews.model.entity.*;
+import mk.ukim.finki.booksreviews.model.entity.Book;
+import mk.ukim.finki.booksreviews.model.entity.Review;
+import mk.ukim.finki.booksreviews.model.entity.Reviewer;
 import mk.ukim.finki.booksreviews.model.request.ReviewRequest;
 import mk.ukim.finki.booksreviews.repository.BookRepository;
 import mk.ukim.finki.booksreviews.repository.ReviewRepository;
@@ -30,11 +32,11 @@ public class ReviewServiceImplTest {
 
     Long bookId = 1L;
     List<Review> reviewList = List.of(
-            Review.of("Review Title 1", "Review Description 1", 4L, bookId, LocalDateTime.now()),
-            Review.of("Review Title 2", "Review Description 2", 8L, bookId, LocalDateTime.now()),
-            Review.of("Review Title 3", "Review Description 3", 5L, bookId, LocalDateTime.now()),
-            Review.of("Review Title 4", "Review Description 4", 2L, bookId, LocalDateTime.now()),
-            Review.of("Review Title 5", "Review Description 5", 4L, bookId, LocalDateTime.now())
+            Review.of("Review Title 1", "Review Description 1", 4L, bookId, LocalDateTime.now(), "positive"),
+            Review.of("Review Title 2", "Review Description 2", 8L, bookId, LocalDateTime.now(), "positive"),
+            Review.of("Review Title 3", "Review Description 3", 5L, bookId, LocalDateTime.now(), "positive"),
+            Review.of("Review Title 4", "Review Description 4", 2L, bookId, LocalDateTime.now(), "positive"),
+            Review.of("Review Title 5", "Review Description 5", 4L, bookId, LocalDateTime.now(), "negative")
     );
 
     @Mock
@@ -116,8 +118,8 @@ public class ReviewServiceImplTest {
         when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
         when(bookRepository.save(any(Book.class))).thenReturn(book);
 
-        assertThat(reviewService.createReview(reviewRequestValidRating)).isNotNull().isPresent().isEqualTo(Optional.of(createdReviewValidRating));
-        assertThat(reviewService.createReview(reviewRequestInvalidRating)).isNotNull().isNotPresent();
+        assertThat(reviewService.createReview(reviewRequestValidRating, "positive")).isNotNull().isPresent().isEqualTo(Optional.of(createdReviewValidRating));
+        assertThat(reviewService.createReview(reviewRequestInvalidRating, "negative")).isNotNull().isNotPresent();
 
         verify(reviewRepository, times(1)).save(any(Review.class));
         verify(reviewerRepository, times(1)).findById(reviewerId);
@@ -133,8 +135,8 @@ public class ReviewServiceImplTest {
         Review createdReviewInvalidRating = reviewList.get(2);
         ReviewRequest reviewRequestValidRating = new ReviewRequest("Review request title 1", "Review request description 1", 2L, 10L, 11L);
         ReviewRequest reviewRequestInvalidRating = new ReviewRequest("Review request title 2", "Review request description 2", 10L, 10L, 11L);
-        Review updatedReviewValidRating = Review.of(reviewRequestValidRating.getTitle(), reviewRequestValidRating.getDescription(), createdReviewValidRating.getRating(), bookId, createdReviewValidRating.getDate());
-        Review updatedReviewInvalidRating = Review.of(reviewRequestInvalidRating.getTitle(), reviewRequestInvalidRating.getDescription(), createdReviewInvalidRating.getRating(), bookId, createdReviewInvalidRating.getDate());
+        Review updatedReviewValidRating = Review.of(reviewRequestValidRating.getTitle(), reviewRequestValidRating.getDescription(), createdReviewValidRating.getRating(), bookId, createdReviewValidRating.getDate(), "positive");
+        Review updatedReviewInvalidRating = Review.of(reviewRequestInvalidRating.getTitle(), reviewRequestInvalidRating.getDescription(), createdReviewInvalidRating.getRating(), bookId, createdReviewInvalidRating.getDate(), "negative");
 
         when(reviewRepository.findById(reviewId)).thenReturn(Optional.of(updatedReviewValidRating)).thenReturn(Optional.of(updatedReviewInvalidRating));
         when(reviewRepository.save(any(Review.class))).thenReturn(updatedReviewValidRating).thenReturn(updatedReviewInvalidRating);

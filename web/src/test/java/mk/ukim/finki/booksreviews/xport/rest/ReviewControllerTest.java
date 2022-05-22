@@ -63,7 +63,7 @@ public class ReviewControllerTest {
     @Test
     public void testGetById() throws Exception {
 
-        Optional<Review> review = reviewService.createReview(new ReviewRequest("Title 1", "Description 1", 5L, 3L, 1L));
+        Optional<Review> review = reviewService.createReview(new ReviewRequest("Title 1", "Description 1", 5L, 3L, 1L), "positive");
 
         if (review.isPresent()) {
             MockHttpServletRequestBuilder reviewRequest = MockMvcRequestBuilders.get(String.format("/api/review/%d", review.get().getId()));
