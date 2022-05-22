@@ -6,10 +6,12 @@ import mk.ukim.finki.booksreviews.model.request.BookRequest;
 import mk.ukim.finki.booksreviews.model.request.ReviewRequest;
 import mk.ukim.finki.booksreviews.service.BookService;
 import mk.ukim.finki.booksreviews.service.ReviewService;
+import mk.ukim.finki.booksreviews.util.JsonUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -97,6 +99,48 @@ public class ReviewControllerTest {
         }
 
     }
+/*
+    @Test
+    public void testCreateReview() throws Exception {
+        ReviewRequest reviewRequestObject = new ReviewRequest("50th Law", "Motivational Book",  5L, 3L, 1L);
+        Optional<Review> review = reviewService.createReview(reviewRequestObject,"0.9");
+
+        if (review.isPresent()) {
 
 
+
+            MockHttpServletRequestBuilder reviewRequest = MockMvcRequestBuilders.post("/api/review/")
+                    .content(JsonUtils.asJsonString(reviewRequestObject))
+                    .contentType(MediaType.APPLICATION_JSON);
+
+            this.mockMvc.perform(reviewRequest)
+                    .andDo(MockMvcResultHandlers.print())
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+            ;
+
+        }
+    }
+
+    @Test
+    public void testUpdateReview() throws Exception {
+        ReviewRequest reviewRequestObject = new ReviewRequest("50th Law", "Motivational Book",  5L, 3L, 1L);
+        Optional<Review> review = reviewService.createReview(reviewRequestObject);
+        if (review.isPresent()) {
+
+
+            MockHttpServletRequestBuilder reviewRequest = MockMvcRequestBuilders.put(String.format("/api/review/%d", review.get().getId()))
+                    .content(JsonUtils.asJsonString(reviewRequestObject))
+                    .contentType(MediaType.APPLICATION_JSON);
+
+            this.mockMvc.perform(reviewRequest)
+                    .andDo(MockMvcResultHandlers.print())
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+            ;
+
+        }
+    }
+
+ */
 }

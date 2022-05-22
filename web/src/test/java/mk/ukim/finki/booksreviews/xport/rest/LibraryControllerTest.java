@@ -6,10 +6,12 @@ import mk.ukim.finki.booksreviews.model.request.BookRequest;
 import mk.ukim.finki.booksreviews.model.request.LibraryRequest;
 import mk.ukim.finki.booksreviews.service.BookService;
 import mk.ukim.finki.booksreviews.service.LibraryService;
+import mk.ukim.finki.booksreviews.util.JsonUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -60,11 +62,22 @@ public class LibraryControllerTest {
 
     @Test
     public void testCreateLibrary() throws Exception {
-        MockHttpServletRequestBuilder createlibraryRequest = MockMvcRequestBuilders.get("/api/library/");
-        this.mockMvc.perform(createlibraryRequest)
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        LibraryRequest libraryRequestObject = new LibraryRequest("Library1","Skopje");
+        Optional<Library> library = libraryService.createLibrary(libraryRequestObject);
 
+        if (library.isPresent()) {
+
+            MockHttpServletRequestBuilder libraryRequest = MockMvcRequestBuilders.post("/api/library/")
+                    .content(JsonUtils.asJsonString(libraryRequestObject))
+                    .contentType(MediaType.APPLICATION_JSON);
+
+            this.mockMvc.perform(libraryRequest)
+                    .andDo(MockMvcResultHandlers.print())
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+            ;
+
+        }
     }
 
     @Test
@@ -92,7 +105,7 @@ public class LibraryControllerTest {
     @Test
     public void testGetAllLibrariesByBook() throws Exception {
         Optional<Book> book = bookService.createBook(new BookRequest("50th Law", "Motivational Book", "Motivation", "50@123", "live", true, 3L, null));
-        // Optional<Review> review = reviewService.createReview(new ReviewRequest("Title 1", "Description 1", 5L, 3L,1L));
+
 
         if (book.isPresent()) {
             MockHttpServletRequestBuilder alllibrariesRequest = MockMvcRequestBuilders.get(String.format("/api/library/book/%d", book.get().getId()));
