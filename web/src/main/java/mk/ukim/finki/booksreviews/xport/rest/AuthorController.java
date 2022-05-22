@@ -40,7 +40,7 @@ public class AuthorController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Author> loginAuthor(@RequestBody @Valid AuthorRequest authorRequest) {
+    public ResponseEntity<Author> loginAuthor(@RequestBody AuthorRequest authorRequest) {
         return authorService.loginAuthor(authorRequest)
                 .map(author -> ResponseEntity.ok().body(author))
                 .orElseGet(() -> ResponseEntity.badRequest().build());

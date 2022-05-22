@@ -1,15 +1,13 @@
 package mk.ukim.finki.booksreviews.xport.rest;
+
 import mk.ukim.finki.booksreviews.model.entity.Book;
 import mk.ukim.finki.booksreviews.model.entity.Review;
-import mk.ukim.finki.booksreviews.model.entity.Reviewer;
 import mk.ukim.finki.booksreviews.model.request.BookRequest;
 import mk.ukim.finki.booksreviews.model.request.ReviewRequest;
-import mk.ukim.finki.booksreviews.model.request.ReviewerRequest;
 import mk.ukim.finki.booksreviews.service.BookService;
 import mk.ukim.finki.booksreviews.service.ReviewService;
-import org.checkerframework.checker.units.qual.A;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -33,6 +31,7 @@ public class ReviewControllerTest {
     private BookService bookService;
     @Autowired
     private ReviewService reviewService;
+
     @BeforeEach
     public void setup(WebApplicationContext wac) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
@@ -50,6 +49,7 @@ public class ReviewControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
+
     @Test
     public void testGetAllReviewsPageable() throws Exception {
         MockHttpServletRequestBuilder reviewpageableRequest = MockMvcRequestBuilders.get("/api/review/page");
@@ -63,7 +63,7 @@ public class ReviewControllerTest {
     @Test
     public void testGetById() throws Exception {
 
-        Optional<Review> review = reviewService.createReview(new ReviewRequest("Title 1", "Description 1", 5L, 3L,1L));
+        Optional<Review> review = reviewService.createReview(new ReviewRequest("Title 1", "Description 1", 5L, 3L, 1L));
 
         if (review.isPresent()) {
             MockHttpServletRequestBuilder reviewRequest = MockMvcRequestBuilders.get(String.format("/api/review/%d", review.get().getId()));
@@ -83,14 +83,12 @@ public class ReviewControllerTest {
 
     @Test
     public void testGetAllReviewsByBook() throws Exception {
-        Optional<Book> book = bookService.createBook(new BookRequest("50th Law", "Motivational Book", "Motivation", "50@123", "live",  true,3L,null));
-        Optional<Review> review = reviewService.createReview(new ReviewRequest("Title 1", "Description 1", 5L, 3L,1L));
+        Optional<Book> book = bookService.createBook(new BookRequest("50th Law", "Motivational Book", "Motivation", "50@123", "live", true, 3L, null));
 
         if (book.isPresent()) {
-            MockHttpServletRequestBuilder allreviewsRequest = MockMvcRequestBuilders.get(String.format("/api/review/book/%d", book.get().getId()));
+            MockHttpServletRequestBuilder allReviewsRequest = MockMvcRequestBuilders.get(String.format("/api/review/book/%d", book.get().getId()));
 
-
-            this.mockMvc.perform(allreviewsRequest)
+            this.mockMvc.perform(allReviewsRequest)
                     .andDo(MockMvcResultHandlers.print())
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().contentType("application/json"))

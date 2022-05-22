@@ -1,14 +1,13 @@
 package mk.ukim.finki.booksreviews.xport.rest;
+
 import mk.ukim.finki.booksreviews.model.entity.Book;
 import mk.ukim.finki.booksreviews.model.entity.Library;
-import mk.ukim.finki.booksreviews.model.entity.Review;
 import mk.ukim.finki.booksreviews.model.request.BookRequest;
 import mk.ukim.finki.booksreviews.model.request.LibraryRequest;
-import mk.ukim.finki.booksreviews.model.request.ReviewRequest;
 import mk.ukim.finki.booksreviews.service.BookService;
 import mk.ukim.finki.booksreviews.service.LibraryService;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -31,6 +30,7 @@ public class LibraryControllerTest {
     private BookService bookService;
     @Autowired
     private LibraryService libraryService;
+
     @BeforeEach
     public void setup(WebApplicationContext wac) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
@@ -48,6 +48,7 @@ public class LibraryControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
+
     @Test
     public void testGetAllLibrariesPageable() throws Exception {
         MockHttpServletRequestBuilder librarypageableRequest = MockMvcRequestBuilders.get("/api/library/page");
@@ -88,11 +89,10 @@ public class LibraryControllerTest {
     }
 
 
-
     @Test
     public void testGetAllLibrariesByBook() throws Exception {
-        Optional<Book> book = bookService.createBook(new BookRequest("50th Law", "Motivational Book", "Motivation", "50@123", "live",  true,3L,null));
-       // Optional<Review> review = reviewService.createReview(new ReviewRequest("Title 1", "Description 1", 5L, 3L,1L));
+        Optional<Book> book = bookService.createBook(new BookRequest("50th Law", "Motivational Book", "Motivation", "50@123", "live", true, 3L, null));
+        // Optional<Review> review = reviewService.createReview(new ReviewRequest("Title 1", "Description 1", 5L, 3L,1L));
 
         if (book.isPresent()) {
             MockHttpServletRequestBuilder alllibrariesRequest = MockMvcRequestBuilders.get(String.format("/api/library/book/%d", book.get().getId()));
@@ -110,10 +110,10 @@ public class LibraryControllerTest {
 
     @Test
     public void testAddBookToLibrary() throws Exception {
-        Optional<Book> book = bookService.createBook(new BookRequest("50th Law", "Motivational Book", "Motivation", "50@123", "live",  true,3L,null));
+        Optional<Book> book = bookService.createBook(new BookRequest("50th Law", "Motivational Book", "Motivation", "50@123", "live", true, 3L, null));
         Optional<Library> library = libraryService.createLibrary(new LibraryRequest("Library 1", "Skopje"));
         if (book.isPresent() & library.isPresent()) {
-            MockHttpServletRequestBuilder addbookRequest = MockMvcRequestBuilders.post(String.format("/api/library/%d/book/%d", library.get().getId(),book.get().getId()));
+            MockHttpServletRequestBuilder addbookRequest = MockMvcRequestBuilders.post(String.format("/api/library/%d/book/%d", library.get().getId(), book.get().getId()));
 
 
             this.mockMvc.perform(addbookRequest)

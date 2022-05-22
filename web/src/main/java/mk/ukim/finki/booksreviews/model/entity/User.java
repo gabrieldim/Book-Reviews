@@ -9,7 +9,6 @@ import javax.persistence.*;
 @MappedSuperclass
 @NoArgsConstructor
 @Setter(value = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public abstract class User {
 
     @Id

@@ -40,7 +40,7 @@ public class ReviewerController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Reviewer> loginReviewer(@RequestBody @Valid ReviewerRequest reviewerRequest) {
+    public ResponseEntity<Reviewer> loginReviewer(@RequestBody ReviewerRequest reviewerRequest) {
         return reviewerService.loginReviewer(reviewerRequest)
                 .map(reviewer -> ResponseEntity.ok().body(reviewer))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
