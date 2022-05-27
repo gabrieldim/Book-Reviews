@@ -12,7 +12,7 @@ export const ReviewSnippet = (props) => {
             <h4> {props.title} </h4>
             <p> {props.rating}/5 stars ({Math.ceil(props.rating/5 * 100)})% </p>
             <p> {props.description}</p>
-            <p className=""> Reviewed at {getDateToLocale(props.date)}</p>
+            <p className=""> Reviewed on {getDateToLocale(props.date)}</p>
         </div>
     )
 }
