@@ -10,6 +10,7 @@ import BeyondOrder from "../../images/BeyondOrder.png";
 import SinEater from '../../images/SinEater.jpg';
 import {ReviewForm} from "../ReviewForm/ReviewForm"
 import {SearchBar} from "../Search/SearchBar";
+import {Link} from "react-router-dom";
 
 export const HomePage = (props) => {
 
@@ -42,7 +43,7 @@ export const HomePage = (props) => {
                             Tell us what titles or genres you’ve enjoyed in the past,
                             and we’ll give you surprisingly insightful recommendations.
                         </p>
-                        <button className="not-a-member"> NOT A MEMBER? <br/> SIGN UP</button>
+                        <Link to={"/signup"} className="navbar-element"><button className="not-a-member"> NOT A MEMBER? <br/> SIGN UP</button></Link>
                     </div>
                 </div>
             </div>
@@ -121,9 +122,10 @@ export const HomePage = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="row p-3 container-lt-blue text-center">
+            {/* TODO: Show only if a user is logged in */}
+            <div className="row p-3 container-lt-blue text-center pt-5 pb-5">
                 <div className="col-sm-12">
-                    <h1 className="bold"> Your opinion matters!</h1>
+                    <h1 className="bold text-white"> Your opinion matters!</h1>
                 </div>
                 <div className="d-flex justify-content-center w-100">
                     <ReviewForm />
