@@ -20,7 +20,7 @@ export const ReviewForm = () => {
             title: title,
             description: description,
             rating: rating,
-            bookId: bookId,
+            bookId: (!bookId && books && books[0]) ? books[0].id : bookId,
             // TODO: Replace with the currently logged in user's id.
             reviewerId: 1,
         };
@@ -28,12 +28,14 @@ export const ReviewForm = () => {
         RS.createReview(createReviewRequest)
             .then((response) => {
                 toast.info("Your review was successfully sent");
-                window.alert("Your review was successfully sent, and it was estimated as " + response.data.sentiment);
+                window.alert("Your review was successfully sent, and it was estimated as: " + response.data.sentiment);
                 window.location.reload(false);
             }).catch(error => {
-            toast.info("There was an error when trying to create a review", error.message);
+            let errorMessage = "There was an error when trying to create a review";
+            window.alert(errorMessage);
+            toast.info(errorMessage, error.message);
+            window.location.reload(false);
         });
-
     }
 
     const getAllBooks = () => {
@@ -52,7 +54,7 @@ export const ReviewForm = () => {
                 <div className={"row mt-5"}>
                     <div className={"col-sm-6 mb-3"}>
                         <Form.Group>
-                            <Form.Select className={"form-control"} id={"bookId"} onChange={(e) => {
+                            <Form.Select id={"bookId"} className={"form-control"} onChange={(e) => {
                                 setBookId(e.target.value)
                             }}>
                                 <option value={""} disabled={"disabled"}>Choose the book you want to review</option>
