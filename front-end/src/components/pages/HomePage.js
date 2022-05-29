@@ -55,7 +55,7 @@ export const HomePage = (props) => {
                 <div className="col-sm-12 mt-5 ">
                     {
                         getMustReadBooks().map((book_prop) => {
-                            return <BookSnippet {...book_prop}/>;
+                            return <BookSnippet key={book_prop.id} {...book_prop}/>;
                         })
                     }
                 </div>
