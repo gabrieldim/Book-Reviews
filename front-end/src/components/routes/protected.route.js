@@ -4,7 +4,7 @@ import Auth from "../../service/authService";
 
 export const ProtectedRoute = ({component: Component, ...rest}) => {
 
-    const [is_auth, setAuth] = useState(true);
+    const [is_auth, setAuth] = useState(false);
     const [user_data, setUserData] = useState({});
 
     useEffect(() => {
@@ -12,6 +12,9 @@ export const ProtectedRoute = ({component: Component, ...rest}) => {
             .then((response) => {
                 setAuth(true);
                 setUserData(response.data);
+            },
+                () => {
+
             });
     });
 

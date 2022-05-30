@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Auth from "../../../service/authService"
 import {ACCESS_TOKEN} from "../../../constants/index"
 import {toast, ToastPosition} from 'react-toastify'
+import {Form} from "react-bootstrap";
 
 export const Register = () => {
 
@@ -10,6 +11,7 @@ export const Register = () => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [msgContents, setMsgContents] = useState("");
+    const [role, setRole] = useState("reviewer");
 
     const handleSubmit = (e)=>{
         e.preventDefault();
@@ -29,7 +31,8 @@ export const Register = () => {
                 name:name,
                 username:username,
                 email:email,
-                password: password
+                password: password,
+                role: role
             };
 
             Auth.register(signUpRequest)
@@ -64,6 +67,12 @@ export const Register = () => {
                 <label htmlFor="password">Password:</label>
                 <input id="password" onChange={(e) => setPassword(e.target.value)}
                        className="form-control text-center" type="password" required/>
+                <br/>
+                <label htmlFor="password">Register as:</label>
+                <Form.Select id="password" size="lg" onChange={(e) => setRole(e.target.value)}>
+                    <option value="reviewer"> Reviewer </option>
+                    <option value="author"> Author </option>
+                </Form.Select>
                 <br/>
                 <div className="col-sm-8 ml-auto mr-auto">
                     <button type={'submit'} className="btn btn-info btn-block">Register</button>

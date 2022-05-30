@@ -1,19 +1,25 @@
 import apiUtils from "../utils/apiUtils";
-import {ACCESS_TOKEN} from "../constants";
+import {ACCESS_ROLE, ACCESS_TOKEN} from "../constants";
 
 
 const Auth = {
     login: (request) => {
-        return apiUtils.post('/auth/signin', request);
+        if(request.role === "author") {
+            return apiUtils.post('/author/login', request);
+        }
+        return apiUtils.post('/reviewer/login', request);
     },
     register: (request) => {
-        return  apiUtils.post('/auth/signup', request);
+        if(request.role === "author") {
+            return apiUtils.post('/author/register', request);
+        }
+        return apiUtils.post('/reviewer/register', request);
     },
     getCurrentUser: () => {
-        if(!localStorage.getItem(ACCESS_TOKEN)) {
-            return Promise.reject("No access token set.");
+        if (localStorage.getItem(ACCESS_TOKEN)) {
+            return apiUtils.post('/' + ACCESS_ROLE + '/' + ACCESS_TOKEN);
         }
-        return apiUtils.get('/user/me')
+        return Promise.reject("You are not logged in");
     }
 };
 
