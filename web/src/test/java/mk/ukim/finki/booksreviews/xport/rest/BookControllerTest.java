@@ -126,7 +126,7 @@ public class BookControllerTest {
 
     @Test
     public void testGetAllBooksByReview() throws Exception {
-        Optional<Review> review = reviewService.createReview(new ReviewRequest("Title 1", "Description 1", 5L, 3L, 1L), "positive");
+        Optional<Review> review = reviewService.createReview(new ReviewRequest("Title 1", "Description 1", 5L, 3L, 1L), "POSITIVE");
 
         if (review.isPresent()) {
             MockHttpServletRequestBuilder allBooksRequest = MockMvcRequestBuilders.get(String.format("/api/book/review/%d", review.get().getId()));

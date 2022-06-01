@@ -19,7 +19,7 @@ export const ReviewsPage = () => {
 
     return (
         <div className="container-fluid">
-            <Header />
+            <Header/>
             {
                 reviews.map(review => {
                     return <ReviewSnippet key={review.id}{...review} />;

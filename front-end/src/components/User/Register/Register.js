@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import Auth from "../../../service/authService"
 import {toast} from 'react-toastify'
 import {Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 export const Register = () => {
+
+    const history = useHistory();
 
     const [fullName, setFullName] = useState("");
     const [password, setPassword] = useState("");
@@ -39,7 +41,7 @@ export const Register = () => {
                     const message = "You've successfully registered!";
                     toast.success(message);
                     alert(message);
-                    window.location.reload(false);
+                    history.push("/login");
                 }).catch(error => {
                 let code = error.message.slice(error.message.length - 3).trim();
                 if (code.contains("40")) {

@@ -5,10 +5,11 @@ import {toast, ToastPosition} from 'react-toastify';
 import './Login.css'
 
 import {Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
-export const Login = (props) => {
+export const Login = () => {
 
+    const history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("reviewer");
@@ -25,9 +26,10 @@ export const Login = (props) => {
         Auth.login(loginRequest)
             .then((response) => {
                 localStorage.setItem(ACCESS_TOKEN, response.data.id);
-                localStorage.setItem(ACCESS_ROLE, response.data.role);
+                localStorage.setItem("userEmail", response.data.email);
+                localStorage.setItem(ACCESS_ROLE, loginRequest.role);
 
-                props.history.push("/home");
+                history.push("/");
             }).catch(error => {
             let code = error.message.slice(error.message.length - 3).trim();
             if (code.includes("40")) {

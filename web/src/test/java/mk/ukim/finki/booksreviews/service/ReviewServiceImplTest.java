@@ -32,11 +32,11 @@ public class ReviewServiceImplTest {
 
     Long bookId = 1L;
     List<Review> reviewList = List.of(
-            Review.of("Review Title 1", "Review Description 1", 4L, bookId, LocalDateTime.now(), "positive"),
-            Review.of("Review Title 2", "Review Description 2", 8L, bookId, LocalDateTime.now(), "positive"),
-            Review.of("Review Title 3", "Review Description 3", 5L, bookId, LocalDateTime.now(), "positive"),
-            Review.of("Review Title 4", "Review Description 4", 2L, bookId, LocalDateTime.now(), "positive"),
-            Review.of("Review Title 5", "Review Description 5", 4L, bookId, LocalDateTime.now(), "negative")
+            Review.of("Review Title 1", "Review Description 1", 4L, bookId, LocalDateTime.now(), "POSITIVE"),
+            Review.of("Review Title 2", "Review Description 2", 8L, bookId, LocalDateTime.now(), "POSITIVE"),
+            Review.of("Review Title 3", "Review Description 3", 5L, bookId, LocalDateTime.now(), "POSITIVE"),
+            Review.of("Review Title 4", "Review Description 4", 2L, bookId, LocalDateTime.now(), "POSITIVE"),
+            Review.of("Review Title 5", "Review Description 5", 4L, bookId, LocalDateTime.now(), "NEGATIVE")
     );
 
     @Mock
@@ -118,8 +118,8 @@ public class ReviewServiceImplTest {
         when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
         when(bookRepository.save(any(Book.class))).thenReturn(book);
 
-        assertThat(reviewService.createReview(reviewRequestValidRating, "positive")).isNotNull().isPresent().isEqualTo(Optional.of(createdReviewValidRating));
-        assertThat(reviewService.createReview(reviewRequestInvalidRating, "negative")).isNotNull().isNotPresent();
+        assertThat(reviewService.createReview(reviewRequestValidRating, "POSITIVE")).isNotNull().isPresent().isEqualTo(Optional.of(createdReviewValidRating));
+        assertThat(reviewService.createReview(reviewRequestInvalidRating, "NEGATIVE")).isNotNull().isNotPresent();
 
         verify(reviewRepository, times(1)).save(any(Review.class));
         verify(reviewerRepository, times(1)).findById(reviewerId);

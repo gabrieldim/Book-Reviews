@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import "./ServerError.css"
 
-const ServerError = (props) => {
+export const ServerError = () => {
     return (
         <div className="col-sm-4 ml-auto mr-auto p-5 mt-5" >
              <h1 className="title text-danger d-block mr-auto ml-auto text-center">
@@ -17,5 +17,3 @@ const ServerError = (props) => {
         </div>
     );
 };
-
-export default ServerError;

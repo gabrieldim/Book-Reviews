@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LoadingIndicator = (props) => {
+const LoadingIndicator = () => {
     return (
     <div className="d-flex justify-content-center w-100">
         <div className="spinner-border" role="status">

@@ -3,6 +3,7 @@ import {Form} from 'react-bootstrap';
 import {toast} from "react-toastify";
 import instance from "../../custom-axios/axios";
 import RS from "../../service/reviewService";
+import {ACCESS_TOKEN} from "../../constants";
 
 export const ReviewForm = () => {
 
@@ -21,8 +22,7 @@ export const ReviewForm = () => {
             description: description,
             rating: rating,
             bookId: (!bookId && books && books[0]) ? books[0].id : bookId,
-            // TODO: Replace with the currently logged in user's id.
-            reviewerId: 1,
+            reviewerId: localStorage.getItem(ACCESS_TOKEN),
         };
 
         RS.createReview(createReviewRequest)
@@ -49,61 +49,68 @@ export const ReviewForm = () => {
     }, []);
 
     return (
-        <div className={"container"}>
-            <Form onSubmit={handleSubmit}>
-                <div className={"row mt-5"}>
-                    <div className={"col-sm-6 mb-3"}>
-                        <Form.Group>
-                            <Form.Select id={"bookId"} className={"form-control"} onChange={(e) => {
-                                setBookId(e.target.value)
-                            }}>
-                                <option value={""} disabled={"disabled"}>Choose the book you want to review</option>
-                                {
-                                    books.map(book => {
-                                        return <option value={book.id}>{book.title}</option>;
-                                    })
-                                }
-                            </Form.Select>
-                        </Form.Group>
-                    </div>
-                    <div className="col-sm-6 mb-3">
-                        <Form.Group>
-                            <Form.Control
-                                id="rating" onChange={(e) => {
-                                setRating(e.target.value)
-                            }}
-                                type="number" min={1} max={5} placeholder="Review Rating..."/>
-                        </Form.Group>
-                    </div>
-                </div>
-                <div className={"row"}>
-                    <div className="col-sm-12 mb-3">
-                        <Form.Group>
-                            <Form.Control
-                                id="title" onChange={(e) => {
-                                setTitle(e.target.value)
-                            }}
-                                required type="text" placeholder="Review Title..."/>
-                        </Form.Group>
-                    </div>
-                </div>
-                <div className={"row"}>
-                    <div className="col-sm-12 mb-3">
-                        <Form.Group>
-                            <Form.Control id="description" onChange={(e) => {
-                                setDescription(e.target.value)
-                            }}
-                                          required as="textarea" rows={5} placeholder={"Review Description"}/>
-                        </Form.Group>
-                    </div>
-                </div>
-                <div className={"row"}>
-                    <div className={"col-sm-12 mt-4"}>
-                        <button type={'submit'} className="see-more-button">LEAVE REVIEW</button>
-                    </div>
-                </div>
+        <div className="row p-3 container-lt-blue text-center pt-5 pb-5">
+            <div className="col-sm-12">
+                <h1 className="bold text-white"> Your opinion matters!</h1>
+            </div>
+            <div className="d-flex justify-content-center w-100">
+                <div className={"container"}>
+                    <Form onSubmit={handleSubmit}>
+                        <div className={"row mt-5"}>
+                            <div className={"col-sm-6 mb-3"}>
+                                <Form.Group>
+                                    <Form.Select id={"bookId"} className={"form-control"} onChange={(e) => {
+                                        setBookId(e.target.value)
+                                    }}>
+                                        <option value={""} disabled={"disabled"}>Choose the book you want to review</option>
+                                        {
+                                            books.map(book => {
+                                                return <option value={book.id}>{book.title}</option>;
+                                            })
+                                        }
+                                    </Form.Select>
+                                </Form.Group>
+                            </div>
+                            <div className="col-sm-6 mb-3">
+                                <Form.Group>
+                                    <Form.Control
+                                        id="rating" onChange={(e) => {
+                                        setRating(e.target.value)
+                                    }}
+                                        type="number" min={1} max={5} placeholder="Review Rating..."/>
+                                </Form.Group>
+                            </div>
+                        </div>
+                        <div className={"row"}>
+                            <div className="col-sm-12 mb-3">
+                                <Form.Group>
+                                    <Form.Control
+                                        id="title" onChange={(e) => {
+                                        setTitle(e.target.value)
+                                    }}
+                                        required type="text" placeholder="Review Title..."/>
+                                </Form.Group>
+                            </div>
+                        </div>
+                        <div className={"row"}>
+                            <div className="col-sm-12 mb-3">
+                                <Form.Group>
+                                    <Form.Control id="description" onChange={(e) => {
+                                        setDescription(e.target.value)
+                                    }}
+                                                  required as="textarea" rows={5} placeholder={"Review Description"}/>
+                                </Form.Group>
+                            </div>
+                        </div>
+                        <div className={"row"}>
+                            <div className={"col-sm-12 mt-4"}>
+                                <button type={'submit'} className="see-more-button">LEAVE REVIEW</button>
+                            </div>
+                        </div>
 
-            </Form>
+                    </Form>
+                </div>
+            </div>
         </div>
     )
 }
