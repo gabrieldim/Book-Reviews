@@ -1,63 +1,67 @@
 import React, {useState} from 'react';
 import {ACCESS_ROLE, ACCESS_TOKEN} from "../../../constants/index"
 import Auth from "../../../service/authService"
-import { toast, ToastPosition } from 'react-toastify';
+import {toast, ToastPosition} from 'react-toastify';
 import './Login.css'
 
-import  {Form} from "react-bootstrap";
+import {Form} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
-export const Login = () => {
+export const Login = (props) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("reviewer");
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        let loginRequest={
-            usernameOrEmail: email,
+        let loginRequest = {
+            email: email,
             password: password,
             role: role
         };
 
         Auth.login(loginRequest)
-            .then((response)=>{
-                console.log(response);
+            .then((response) => {
                 localStorage.setItem(ACCESS_TOKEN, response.data.id);
                 localStorage.setItem(ACCESS_ROLE, response.data.role);
-            }).catch(error =>{
-                let code=error.message.slice(error.message.length-3).trim();
-                if(code === '401'){
-                    toast.error("Your username/email or password is incorrect! Try again!",{position:ToastPosition.TOP_CENTER})
-                }
-            });
-        
+
+                props.history.push("/home");
+            }).catch(error => {
+            let code = error.message.slice(error.message.length - 3).trim();
+            if (code.includes("40")) {
+                toast.error("Your email or password is incorrect! Try again!", {position: ToastPosition.TOP_CENTER})
+                alert("Your email or password is incorrect! Try again!");
+            }
+        });
+
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <div className="col-sm-4 ml-auto mr-auto p-5 mt-5 login-background"
-                 >
-                <label htmlFor="address">Email or Username:</label>
-                <input id="email" onChange={(e) => {setEmail(e.target.value)}}
-                       className="form-control text-center" autoFocus type="text"
-                     required />
+            >
+                <label htmlFor="address">Email:</label>
+                <input id="email" onChange={(e) => {
+                    setEmail(e.target.value)
+                }}
+                       className="form-control text-center mt-1" autoFocus type="text"
+                       required/>
 
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password" className={"mt-3"}>Password:</label>
                 <input id="password" onChange={(e) => setPassword(e.target.value)}
-                       className="form-control text-center" type="password" required/>
+                       className="form-control text-center mt-1" type="password" required/>
 
-                <div className="col-sm-12  mt-2">
-                    <Form.Select size="lg" onChange={(e) => setRole(e.target.value)}>
-                        <option value="reviewer"> Reviewer </option>
-                        <option value="author"> Author </option>
-                    </Form.Select>
+                <label htmlFor="role" className={"mt-3"}>Role:</label>
+                <Form.Select id={"role"} className={"form-control mt-1"} size="lg"
+                             onChange={(e) => setRole(e.target.value)}>
+                    <option value="reviewer"> Reviewer</option>
+                    <option value="author"> Author</option>
+                </Form.Select>
 
-                </div>
-                <div className="col-sm-8 ml-auto mr-auto mt-5">
-                    <button type={'submit'} className="btn btn-info btn-block btnColor">Sign in</button>
-                </div>
+                <button type={'submit'} className="btn btn-info btn-block btnColor mt-5">Sign in</button>
+                <Link to={"/signup"} className="btn btn-block btn-outline-dark mt-3">Sign up</Link>
             </div>
         </form>
     );

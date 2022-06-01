@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Route, Redirect} from 'react-router-dom';
+import {Redirect, Route} from 'react-router-dom';
 import Auth from "../../service/authService";
 
 export const ProtectedRoute = ({component: Component, ...rest}) => {
@@ -10,29 +10,28 @@ export const ProtectedRoute = ({component: Component, ...rest}) => {
     useEffect(() => {
         Auth.getCurrentUser()
             .then((response) => {
-                setAuth(true);
-                setUserData(response.data);
-            },
+                    setAuth(true);
+                    setUserData(response.data);
+                },
                 () => {
 
-            });
+                });
     });
 
     return (
         <Route
             {...rest}
             render={props => {
-                if(is_auth) {
+                if (is_auth) {
                     props.user_data = user_data;
                     return <Component {...props}/>;
-                }
-                else{
+                } else {
                     return <Redirect to={{
                         pathname: "/login",
                         from: props.location
                     }}/>;
                 }
             }
-        }/>
+            }/>
     );
 }

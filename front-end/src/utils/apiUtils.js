@@ -43,8 +43,8 @@ function token() {
 }
 
 function isExpired(token){
-    var decodedToken=jwt.decode(token, {complete: true});
-    var dateNow = new Date();
-    return decodedToken.exp < dateNow.getTime();
+    let decodedToken=jwt.decode(token, {complete: true});
+    let dateNow = new Date();
+    return (decodedToken) ? decodedToken.exp < dateNow.getTime() : false;
 }
 export default apiUtils;

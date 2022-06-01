@@ -17,7 +17,7 @@ const Auth = {
     },
     getCurrentUser: () => {
         if (localStorage.getItem(ACCESS_TOKEN)) {
-            return apiUtils.post('/' + ACCESS_ROLE + '/' + ACCESS_TOKEN);
+            return apiUtils.get('/' + ACCESS_ROLE + '/' + localStorage.getItem(ACCESS_TOKEN));
         }
         return Promise.reject("You are not logged in");
     }

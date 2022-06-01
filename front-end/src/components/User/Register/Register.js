@@ -1,82 +1,85 @@
 import React, {useState} from 'react';
 import Auth from "../../../service/authService"
-import {ACCESS_TOKEN} from "../../../constants/index"
-import {toast, ToastPosition} from 'react-toastify'
+import {toast} from 'react-toastify'
 import {Form} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 export const Register = () => {
 
-    const [name, setName] = useState("");
-    const [username, setUserName] = useState("");
+    const [fullName, setFullName] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [msgContents, setMsgContents] = useState("");
     const [role, setRole] = useState("reviewer");
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (name.value.length<=3 || username.value.length<=3 ){
-            setMsgContents( "Username and name length must not be less than 3. ");
+        if (fullName.length <= 3 || fullName.split(" ").length < 2) {
+            setMsgContents("Write your full name");
         }
-        if (password.length < 8 || password ==="") {
+        if (password.length < 8 || password === "") {
             setMsgContents("Password must not be empty and be less than 8.");
         }
-        if (msgContents!==""){
-            toast.error(msgContents,{autoClose:4000});
-        }
-        else{
+        if (msgContents !== "") {
+            toast.error(msgContents, {autoClose: 4000});
+        } else {
 
-            let signUpRequest={
-                name:name,
-                username:username,
-                email:email,
+            let nameParts = fullName.split(" ");
+            let signUpRequest = {
+                firstName: nameParts[0],
+                lastName: nameParts[1],
+                email: email,
                 password: password,
                 role: role
             };
 
             Auth.register(signUpRequest)
-                .then((response)=>{
-                    toast.success("You've successfully registered!")
-
-                }).catch(error =>{
-                    let code=error.message.slice(error.message.length-3).trim();
-                    if(code === '400'){
-                        toast.error("That username or email is taken!")
-                    }
-                });
-            }
+                .then(() => {
+                    const message = "You've successfully registered!";
+                    toast.success(message);
+                    alert(message);
+                    window.location.reload(false);
+                }).catch(error => {
+                let code = error.message.slice(error.message.length - 3).trim();
+                if (code.contains("40")) {
+                    const message = "There was an error when trying to register the user!";
+                    toast.error(message);
+                    alert(message);
+                }
+            });
+        }
     }
 
     return (
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit}>
             <div className="col-sm-4 ml-auto mr-auto p-5 mt-5 "
-                 style={{backgroundColor:'#4fb9b451', border:'0.1em solid #20B2AA',borderRadius:'0.2em'}}>
-                    <label htmlFor="name">Name:</label>
-                    <input id="name" onChange={(e) => {setName(e.target.value)}}
-                           className="form-control text-center" type="text" required/>
-                    <br/>
-                    <label htmlFor="name">Username:</label>
-                    <input id="username" onChange={(e) => {setUserName(e.target.value)}}
-                           className="form-control text-center" type="text" required/>
-                    <br/>
-                    <label htmlFor="email">Email:</label>
-                    <input id="email" onChange={(e) => {setEmail(e.target.value)}}
-                           className="form-control text-center"  type="email" required/>
+                 style={{backgroundColor: '#4fb9b451', border: '0.1em solid #20B2AA', borderRadius: '0.2em'}}>
+                <label htmlFor="name">Full Name:</label>
+                <input id="name" onChange={(e) => {
+                    setFullName(e.target.value)
+                }}
+                       className="form-control text-center" type="text" required/>
+                <br/>
+                <label htmlFor="email">Email:</label>
+                <input id="email" onChange={(e) => {
+                    setEmail(e.target.value)
+                }}
+                       className="form-control text-center" type="email" required/>
                 <br/>
                 <label htmlFor="password">Password:</label>
                 <input id="password" onChange={(e) => setPassword(e.target.value)}
                        className="form-control text-center" type="password" required/>
                 <br/>
-                <label htmlFor="password">Register as:</label>
-                <Form.Select id="password" size="lg" onChange={(e) => setRole(e.target.value)}>
-                    <option value="reviewer"> Reviewer </option>
-                    <option value="author"> Author </option>
+                <label htmlFor="role">Role:</label>
+                <Form.Select className={"form-control"} id="role" size="lg" onChange={(e) => setRole(e.target.value)}>
+                    <option value="reviewer"> Reviewer</option>
+                    <option value="author"> Author</option>
                 </Form.Select>
                 <br/>
-                <div className="col-sm-8 ml-auto mr-auto">
-                    <button type={'submit'} className="btn btn-info btn-block">Register</button>
-                </div>
+
+                <button type={'submit'} className="btn btn-info btn-block mt-4">Sign up</button>
+                <Link to={"/login"} className="btn btn-block btn-outline-dark mt-3">Sign in</Link>
             </div>
         </form>
     );
