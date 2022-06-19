@@ -12,6 +12,10 @@ public interface BookService {
 
     List<Book> findAll();
 
+    List<Book> findAllByGenre(String genre);
+
+    List<Book> searchBooks(String searchTerm);
+
     Page<Book> findAllPageable(Pageable pageable);
 
     List<Book> findAllByReview(Long reviewId);

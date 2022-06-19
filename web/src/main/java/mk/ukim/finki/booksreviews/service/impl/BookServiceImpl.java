@@ -31,6 +31,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> findAllByGenre(String genre) {
+        return bookRepository.findAllByGenreLike(String.format("%%%s%%", genre));
+    }
+
+    @Override
+    public List<Book> searchBooks(String searchTerm) {
+        return bookRepository.search(String.format("%%%s%%", searchTerm));
+    }
+
+    @Override
     public Page<Book> findAllPageable(Pageable pageable) {
         return bookRepository.findAll(pageable);
     }
@@ -48,7 +58,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Optional<Book> createBook(BookRequest bookRequest) {
         Book book = bookRepository.save(Book.of(bookRequest.getTitle(), bookRequest.getDescription(), bookRequest.getGenre(),
-                bookRequest.getPreviewLink(), bookRequest.getQuote(), bookRequest.getAvailability()));
+                bookRequest.getPictureLink(), bookRequest.getQuote(), bookRequest.getAvailability()));
         authorRepository.findById(bookRequest.getAuthorId()).ifPresent(author -> {
             author.addBook(book);
             authorRepository.save(author);
@@ -70,7 +80,7 @@ public class BookServiceImpl implements BookService {
             book.setDescription(bookRequest.getDescription());
             book.setGenre(bookRequest.getGenre());
             book.setQuote(bookRequest.getQuote());
-            book.setPreviewLink(bookRequest.getPreviewLink());
+            book.setPictureLink(bookRequest.getPictureLink());
             book.setAvailability(bookRequest.getAvailability());
             return bookRepository.save(book);
         });

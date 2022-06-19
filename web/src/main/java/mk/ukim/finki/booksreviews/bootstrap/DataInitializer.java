@@ -49,19 +49,19 @@ public class DataInitializer {
             Optional<Library> library3 = libraryService.createLibrary(new LibraryRequest("Library 3", "Library Location 3"));
 
             Optional<Book> book1 = bookService.createBook(new BookRequest("Book 1", "Book 1 Description",
-                    "Romance", "https://www.nytimes.com/2022/04/03/books/jenny-tinghui-zhang-four-treasures-of-the-sky.html",
+                    "Romance", "https://cdn.britannica.com/21/182021-050-666DB6B1/book-cover-To-Kill-a-Mockingbird-many-1961.jpg",
                     "Four treasures", false, author1.map(Author::getId).orElse(null), null));
             Optional<Book> book2 = bookService.createBook(new BookRequest("Book 2", "Book 2 Description",
-                    "Romance", "https://www.nytimes.com/2022/04/03/books/jenny-tinghui-zhang-four-treasures-of-the-sky.html",
+                    "Romance", "https://cdn.britannica.com/47/24647-050-E6E25F22/F-Scott-Fitzgerald.jpg",
                     "Five treasures", true, author1.map(Author::getId).orElse(null), library1.map(Library::getId).orElse(null)));
             Optional<Book> book3 = bookService.createBook(new BookRequest("Book 3", "Book 3 Description",
-                    "Romance", "https://www.nytimes.com/2022/04/03/books/jenny-tinghui-zhang-four-treasures-of-the-sky.html",
+                    "Romance", "https://cdn.britannica.com/03/11603-050-85A0D5EA/Gabriel-Garcia-Marquez-1982.jpg",
                     "Six treasures", true, author1.map(Author::getId).orElse(null), library1.map(Library::getId).orElse(null)));
             Optional<Book> book4 = bookService.createBook(new BookRequest("Book 4", "Book 4 Description",
-                    "Thriller", "https://www.nytimes.com/2022/04/21/books/12-new-books-we-recommend-this-week.html",
+                    "Thriller", "https://cdn.britannica.com/82/11782-004-305E324D/EM-Forster.jpg",
                     "Seven treasures", true, author2.map(Author::getId).orElse(null), library2.map(Library::getId).orElse(null)));
             Optional<Book> book5 = bookService.createBook(new BookRequest("Book 5", "Book 5 Description",
-                    "Thriller", "https://www.nytimes.com/2022/04/21/books/12-new-books-we-recommend-this-week.html",
+                    "Thriller", "https://cdn.britannica.com/11/79911-050-5C091BE6/Ralph-Ellison-1952.jpg",
                     "Eight treasures", true, author2.map(Author::getId).orElse(null), library3.map(Library::getId).orElse(null)));
 
             Optional<Reviewer> reviewer1 = reviewerService.registerReviewer(new ReviewerRequest("Jovana", "Kocevska", "kocevska@gmail.com", "jovanaA@123",

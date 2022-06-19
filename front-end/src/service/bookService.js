@@ -24,7 +24,7 @@ const BS = {
         return apiUtils.delete("/book/"+bookId);
     },
     createBook:(bookRequest)=>{
-        return apiUtils.post("/book/create",bookRequest);
+        return apiUtils.post("/book/",bookRequest);
     }
 }
 export default BS;

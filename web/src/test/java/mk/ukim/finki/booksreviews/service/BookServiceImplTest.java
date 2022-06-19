@@ -81,6 +81,27 @@ public class BookServiceImplTest {
     }
 
     @Test
+    public void testSearchBooks() {
+        String searchTerm = "Book 3";
+        when(bookRepository.search(anyString())).thenReturn(List.of()).thenReturn(List.of(bookList.get(2)));
+
+        assertThat(bookService.searchBooks(searchTerm)).isNotNull().isEmpty();
+        assertThat(bookService.searchBooks(searchTerm)).isNotNull().isNotEmpty().hasSizeGreaterThan(0).hasSize(1).isEqualTo(List.of(bookList.get(2)));
+        verify(bookRepository, times(2)).search(String.format("%%%s%%", searchTerm));
+    }
+
+    @Test
+    public void testFindAllByGenre() {
+        String genreFilter = "Thriller";
+        List<Book> filteredList = List.of(bookList.get(1), bookList.get(3), bookList.get(4));
+        when(bookRepository.findAllByGenreLike(anyString())).thenReturn(List.of()).thenReturn(filteredList);
+
+        assertThat(bookService.findAllByGenre(genreFilter)).isNotNull().isEmpty();
+        assertThat(bookService.findAllByGenre(genreFilter)).isNotNull().isNotEmpty().hasSizeGreaterThan(0).hasSize(3).isEqualTo(filteredList);
+        verify(bookRepository, times(2)).findAllByGenreLike(String.format("%%%s%%", genreFilter));
+    }
+
+    @Test
     public void testFindAllByReview() {
         Long reviewId = 1L;
         List<Book> filteredBooks = List.of(bookList.get(0));
@@ -113,8 +134,8 @@ public class BookServiceImplTest {
         ReflectionTestUtils.setField(createdBookWithLibrary, "id", bookId);
         ReflectionTestUtils.setField(author, "id", authorId);
         ReflectionTestUtils.setField(library, "id", libraryId);
-        BookRequest bookRequestWithoutLibrary = new BookRequest(createdBookWithoutLibrary.getTitle(), createdBookWithoutLibrary.getDescription(), createdBookWithoutLibrary.getGenre(), createdBookWithoutLibrary.getPreviewLink(), createdBookWithoutLibrary.getQuote(), createdBookWithoutLibrary.getAvailability(), authorId, null);
-        BookRequest bookRequestWithLibrary = new BookRequest(createdBookWithoutLibrary.getTitle(), createdBookWithoutLibrary.getDescription(), createdBookWithoutLibrary.getGenre(), createdBookWithoutLibrary.getPreviewLink(), createdBookWithoutLibrary.getQuote(), createdBookWithoutLibrary.getAvailability(), authorId, libraryId);
+        BookRequest bookRequestWithoutLibrary = new BookRequest(createdBookWithoutLibrary.getTitle(), createdBookWithoutLibrary.getDescription(), createdBookWithoutLibrary.getGenre(), createdBookWithoutLibrary.getPictureLink(), createdBookWithoutLibrary.getQuote(), createdBookWithoutLibrary.getAvailability(), authorId, null);
+        BookRequest bookRequestWithLibrary = new BookRequest(createdBookWithoutLibrary.getTitle(), createdBookWithoutLibrary.getDescription(), createdBookWithoutLibrary.getGenre(), createdBookWithoutLibrary.getPictureLink(), createdBookWithoutLibrary.getQuote(), createdBookWithoutLibrary.getAvailability(), authorId, libraryId);
 
         when(bookRepository.save(any(Book.class))).thenReturn(createdBookWithoutLibrary).thenReturn(createdBookWithLibrary);
         when(authorRepository.findById(authorId)).thenReturn(Optional.of((Author) author));
@@ -136,8 +157,8 @@ public class BookServiceImplTest {
     public void testUpdateBook() {
         Long bookId = 1L;
         Book createdBook = bookList.get(0);
-        BookRequest bookRequest = new BookRequest("title", "description", "genre", "previewLink", "quote", false, 3L, null);
-        Book updatedBook = Book.of(bookRequest.getTitle(), bookRequest.getDescription(), bookRequest.getGenre(), bookRequest.getPreviewLink(), bookRequest.getQuote(), bookRequest.getAvailability());
+        BookRequest bookRequest = new BookRequest("title", "description", "genre", "pictureLink", "quote", false, 3L, null);
+        Book updatedBook = Book.of(bookRequest.getTitle(), bookRequest.getDescription(), bookRequest.getGenre(), bookRequest.getPictureLink(), bookRequest.getQuote(), bookRequest.getAvailability());
 
         when(bookRepository.findById(bookId)).thenReturn(Optional.of(createdBook));
         when(bookRepository.save(any(Book.class))).thenReturn(updatedBook);

@@ -43,12 +43,9 @@ export const Register = () => {
                     alert(message);
                     history.push("/login");
                 }).catch(error => {
-                let code = error.message.slice(error.message.length - 3).trim();
-                if (code.contains("40")) {
-                    const message = "There was an error when trying to register the user!";
-                    toast.error(message);
-                    alert(message);
-                }
+                const message = "There was an error when trying to register the user! " + error;
+                toast.error(message);
+                alert(message);
             });
         }
     }

@@ -20,12 +20,14 @@ public class Book {
 
     private String title;
 
+    @Column(columnDefinition="TEXT")
     private String description;
 
     private String genre;
 
-    private String previewLink;
+    private String pictureLink;
 
+    @Column(columnDefinition="TEXT")
     private String quote;
 
     private Boolean availability;
@@ -34,12 +36,12 @@ public class Book {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Review> reviews;
 
-    public static Book of(String title, String description, String genre, String previewLink, String quote, Boolean availability) {
+    public static Book of(String title, String description, String genre, String pictureLink, String quote, Boolean availability) {
         Book book = new Book();
         book.title = title;
         book.description = description;
         book.genre = genre;
-        book.previewLink = previewLink;
+        book.pictureLink = pictureLink;
         book.quote = quote;
         book.availability = availability;
         book.reviews = new ArrayList<>();

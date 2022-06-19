@@ -51,6 +51,16 @@ public class BookController {
         return bookService.findAllPageable(pageable);
     }
 
+    @GetMapping("/search")
+    public List<Book> searchBooks(@RequestParam(required = false) String searchTerm) {
+        return bookService.searchBooks(searchTerm);
+    }
+
+    @GetMapping("/genre")
+    public List<Book> getAllBooksByGenre(@RequestParam(required = false) String genre) {
+        return bookService.findAllByGenre(genre);
+    }
+
     @GetMapping("/review/{reviewId}")
     public List<Book> getAllBooksByReview(@PathVariable Long reviewId) {
         return bookService.findAllByReview(reviewId);

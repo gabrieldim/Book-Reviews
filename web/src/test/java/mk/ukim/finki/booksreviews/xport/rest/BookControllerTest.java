@@ -53,13 +53,30 @@ public class BookControllerTest {
 
     @Test
     public void testGetAllBooksPageable() throws Exception {
-        MockHttpServletRequestBuilder bookpageableRequest = MockMvcRequestBuilders.get("/api/book/page");
-        this.mockMvc.perform(bookpageableRequest)
+        MockHttpServletRequestBuilder bookPageableRequest = MockMvcRequestBuilders.get("/api/book/page");
+        this.mockMvc.perform(bookPageableRequest)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
+    @Test
+    public void testSearchBooks() throws Exception {
+        MockHttpServletRequestBuilder bookPageableRequest = MockMvcRequestBuilders.get("/api/book/search");
+        this.mockMvc.perform(bookPageableRequest)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+    }
+
+    @Test
+    public void testFindAllByGenre() throws Exception {
+        MockHttpServletRequestBuilder bookPageableRequest = MockMvcRequestBuilders.get("/api/book/genre");
+        this.mockMvc.perform(bookPageableRequest)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+    }
 
     @Test
     public void testGetById() throws Exception {

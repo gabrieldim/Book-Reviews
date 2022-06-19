@@ -20,7 +20,7 @@ public class BookRequest {
     @NotBlank
     private String genre;
     @NotBlank
-    private String previewLink;
+    private String pictureLink;
     @NotBlank
     private String quote;
     @NotNull

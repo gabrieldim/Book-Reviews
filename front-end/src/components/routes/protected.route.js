@@ -25,7 +25,6 @@ export const ProtectedRoute = ({component: Component, ...rest}) => {
             render={props => {
                 if (localStorage.getItem(ACCESS_TOKEN)) {
                     props.user_data = user_data;
-                    console.log(user_data);
                     return <Component {...props}/>;
                 } else {
                     return <Redirect to={{

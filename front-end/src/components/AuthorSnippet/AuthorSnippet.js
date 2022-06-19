@@ -18,7 +18,7 @@ export const AuthorSnippet = (props) => {
                 <h4 className="author-name"> {props.firstName + " " + props.lastName} - {props.artName}</h4>
                 <p> {props.age} years old</p>
                 <p> Authored on {props.books.length} books ( {getReviewsCount(props)} reviews )</p>
-                <p> Available at {props.email}</p>
+                <p> Available on <i>{props.email}</i></p>
             </div>
             <div className="author-titles">
                 <h5> Latest titles</h5>
