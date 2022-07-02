@@ -53,7 +53,7 @@ export const BooksPage = (props) => {
             <Header/>
             {
                 (localStorage.getItem(ACCESS_ROLE) === "author") ? (
-                    <div className={"row"}>
+                    <div className={"row mb-3"}>
                         <div className={"col-sm-12 mt-4"}>
                             <Link to={"/bookAddition"}>
                                 <button type={'button'} className="see-more-button">ADD NEW BOOK</button>
@@ -63,11 +63,15 @@ export const BooksPage = (props) => {
                 ) : null
             }
 
-            {
-                books.map(book => {
-                    return <BookSnippet key={book.id} {...book} />;
-                })
-            }
+
+            <div className="row align-content-center">
+                {
+                    books.map(book => {
+                        return <BookSnippet key={book.id} {...book} />;
+                    })
+                }
+            </div>
+
         </div>
     )
 }

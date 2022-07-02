@@ -73,12 +73,12 @@ export const HomePage = () => {
     return (
         <div className="container-fluid">
             <Header/>
-            <div className="row p-3 container-1">
-                <div className="col-sm-6 mt-3">
+            <div className="row p-3 container-1 align-items-center">
+                <div className="col-sm-5 mt-3">
                     <img src={BookShell} alt="BookShell" className="book-shell"/>
                 </div>
-                <div className="col-sm-6 mt-3">
-                    <div className="container-intro">
+                <div className="col-sm-7 mt-3">
+                    <div className="container-intro" >
                         <h1 className="bold"> Find the joy you seek, one day at a time.</h1>
                         <p>
                             If you're thinking what to read next then you’re in the right place.
@@ -92,18 +92,18 @@ export const HomePage = () => {
                 </div>
             </div>
 
-            <div className="row p-3 container-2 text-center">
+            <div className="row text-center align-items-center">
                 <div className="col-sm-12 ">
                     <h1 className="bold lt-blue"> Must read books</h1>
                 </div>
-                <div className="col-sm-12 mt-5 ">
+                <div className="row">
                     {
                         mustReadBooks.map((book) => {
                             return <BookSnippet key={book.id} {...book}/>;
                         })
                     }
                 </div>
-                <div className="col-sm-12">
+                <div className="col-sm-12 mb-3">
                     <Link to={"/books"}>
                         <button className="see-more-button">
                             See More
@@ -112,9 +112,9 @@ export const HomePage = () => {
                 </div>
             </div>
 
-            <div className="row p-3 container-lt-blue">
-                <div className="col-sm-6">
-                    <h1 className="bold"> The most trending book</h1>
+            <div className="row p-3 container-lt-blue align-items-center">
+                <div className="col-sm-8">
+                    <h1 className="lt-green bold"> The most trending book</h1>
                     <h3> {highestRatedBook.title}</h3>
                     <h5> {highestRatedBook.genre}</h5>
                     <blockquote> {highestRatedBook.quote}</blockquote>
@@ -125,11 +125,11 @@ export const HomePage = () => {
                 </div>
             </div>
 
-            <div className="row p-3 container-lt-green">
+            <div className="row p-3 container-lt-green align-items-center">
                 <div className="col-sm-4">
                     <img src={StockMan} alt="stock guy"/>
                 </div>
-                <div className="col-sm-4">
+                <div className="col-sm-8">
                     <h1 className="lt-blue bold mb-3"> Author of the month</h1>
                     <h2 className={"mb-3"}>
                         {trendingAuthor.firstName} {trendingAuthor.lastName} <b>({trendingAuthor.artName})</b>

@@ -14,19 +14,25 @@ export const AuthorSnippet = (props) => {
 
     return (
         <div className="author-snippet col-sm-12 d-flex justify-content-between">
-            <div>
-                <h4 className="author-name"> {props.firstName + " " + props.lastName} - {props.artName}</h4>
-                <p> {props.age} years old</p>
-                <p> Authored on {props.books.length} books ( {getReviewsCount(props)} reviews )</p>
-                <p> Available on <i>{props.email}</i></p>
+            <div className="card col-md-6" >
+                <div className="card-body">
+                    <h5 className="card-title">{props.firstName + " " + props.lastName} - {props.artName}</h5>
+                    <p className="card-text">{props.age} years old</p>
+                    <p className="card-text">Authored on {props.books.length} books ( {getReviewsCount(props)} reviews )</p>
+                    <p className="card-text">Available on <i>{props.email}</i></p>
+                </div>
             </div>
-            <div className="author-titles">
-                <h5> Latest titles</h5>
-                <ul> {props.books.map(book => {
+            <div class="card col-md-6">
+                <div class="card-header">
+                    Latest Titles
+                </div>
+                <ul class="list-group list-group-flush ml-3">{props.books.map(book => {
                     return <li key={book.id}> {book.title} </li>;
                 })}
                 </ul>
             </div>
         </div>
+
+
     );
 }

@@ -5,9 +5,9 @@
     width: 100px;
 }
 .navbar-element {
-    margin-left: 2rem;
     font-size: 1.3rem;
     color: #111E54;
+
 }
 
 .navbar-custom a:hover {

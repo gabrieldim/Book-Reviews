@@ -21,9 +21,12 @@ export const ReviewsPage = () => {
         <div className="container-fluid">
             <Header/>
             {
-                reviews.map(review => {
-                    return <ReviewSnippet key={review.id}{...review} />;
-                })
+                <div className="row mt-3">{
+                    reviews.map(review => {
+                        return <ReviewSnippet key={review.id}{...review} />;
+                    })
+                }
+                </div>
             }
         </div>
     )
